@@ -4,7 +4,7 @@
   "description": "backend of the technical assignment for the position of software engineer",
   "main": "index.js",
   "scripts": {
-    "start": "node src/index.js",
+    "start": "npx ts-node src/app.ts",
     "start:dev": "npx nodemon -e json,js,ts  src/app.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
     "test:unit": "npx mocha -r ts-node/register --recursive 'src/**/**.spec.ts'"

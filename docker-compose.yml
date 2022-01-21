@@ -1,0 +1,10 @@
+version: '3'
+services:
+  api:
+    container_name: mashgin-api
+    build: ./api/
+    ports:
+      - '3000:3000'
+    #depends_on:
+    #  - database
+    command: 'npm start'
