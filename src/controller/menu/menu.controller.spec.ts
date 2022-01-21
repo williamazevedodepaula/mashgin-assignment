@@ -9,7 +9,8 @@ import { assert } from 'chai';
 
 
 describe('MenuController',()=>{
-  let menuMock:Menu = {categories:[],products:[]};
+  let menuMock:Menu = require('../../../res/sample-menu.json');
+  console.log(menuMock);
   let fetchMenuSpy:sinon.SinonSpy;
 
   let menuServiceMock:IMenuService = {

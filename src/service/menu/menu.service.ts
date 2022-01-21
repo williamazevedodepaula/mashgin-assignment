@@ -5,7 +5,7 @@ export class MenuService implements IMenuService{
   public async fetchMenu():Promise<Menu>{
     return {
       categories:[],
-      products:[]
+      items:[]
     }
   }
 }
