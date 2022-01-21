@@ -9,3 +9,5 @@
 # Coverage
 */coverage
 */.nyc_output
+
+database/.data

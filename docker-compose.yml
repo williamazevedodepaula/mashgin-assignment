@@ -1,10 +1,24 @@
 version: '3'
 services:
+  db:
+    ports:
+      - 27018:27017
+    restart: on-failure
+    container_name: mashgin-db
+    image: mongo:latest
+    volumes:
+      - ./database/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js
+      - ./resources/sample-menu.json:/docker-entrypoint-initdb.d/sample-menu.json
+      - ./database/.data:/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: api
+      MONGO_INITDB_ROOT_PASSWORD: mashgin-checkout-api-123
+      MONGO_INITDB_DATABASE: checkout-db
   api:
     container_name: mashgin-api
     build: ./api/
     ports:
       - '3000:3000'
-    #depends_on:
-    #  - database
+    depends_on:
+      - db
     command: 'npm start'
