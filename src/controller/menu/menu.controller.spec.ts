@@ -10,13 +10,10 @@ import { assert } from 'chai';
 
 describe('MenuController',()=>{
   let menuMock:Menu = require('../../../res/sample-menu.json');
-  console.log(menuMock);
   let fetchMenuSpy:sinon.SinonSpy;
 
   let menuServiceMock:IMenuService = {
-    fetchMenu:async()=>{
-      return menuMock;
-    }
+    fetchMenu:async()=>(menuMock)
   };
 
   let menuController:IMenuController;
@@ -27,6 +24,10 @@ describe('MenuController',()=>{
 
   beforeEach('prepare the spyes',()=>{
     fetchMenuSpy = sinon.spy(menuServiceMock,'fetchMenu');
+  })
+
+  afterEach(()=>{
+    sinon.restore();
   })
 
   describe('Testing fetchMenu method',()=>{
