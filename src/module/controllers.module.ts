@@ -1,6 +1,6 @@
+import { MenuController } from '../controller';
 import { CategoryRepository, ProductRepository } from '../repository';
 import { MenuService } from '../service/menu/menu.service';
-import { MenuController } from './menu/menu.controller';
 
 
 

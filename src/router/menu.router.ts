@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { controllersModule } from '../controller/controllers.module';
+import { controllersModule } from '../module/controllers.module';
 
 const express = require('express');
 const router = express.Router();
