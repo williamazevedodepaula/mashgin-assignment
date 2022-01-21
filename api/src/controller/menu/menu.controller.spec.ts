@@ -7,9 +7,10 @@ import { IMenuController } from './menu.controller.interface'
 import * as sinon from 'sinon';
 import { assert } from 'chai';
 
+import * as menuMock from '../../../../resources/sample-menu.json';
 
 describe('MenuController',()=>{
-  let menuMock:Menu = require('../../../res/sample-menu.json');
+
   let fetchMenuSpy:sinon.SinonSpy;
 
   let menuServiceMock:IMenuService = {

@@ -6,9 +6,9 @@ import { IMenuService } from './menu.service.interface';
 import { MenuService } from './menu.service';
 import * as sinon from 'sinon';
 import { assert } from 'chai';
+import * as menuMock from '../../../../resources/sample-menu.json';
 
 describe('MenuService',()=>{
-  let menuMock:Menu = require('../../../res/sample-menu.json');
   let categoriesMock:Category[] = menuMock.categories;
   let productsMock:Product[] = menuMock.items;
 
