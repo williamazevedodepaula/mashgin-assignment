@@ -34,7 +34,7 @@ describe('MenuController',()=>{
     it('Should call service`s fetchMenu method',async()=>{
       const menu = await menuController.fetchMenu();
       assert(fetchMenuSpy.calledOnce, 'Should have called service`s fetch method once');
-      menu.should.equal(menuMock)
+      menu.should.deep.equal(menuMock)
     })
   })
 })

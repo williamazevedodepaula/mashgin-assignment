@@ -45,7 +45,7 @@ describe('MenuService',()=>{
       const menu = await menuService.fetchMenu();
       assert(listCategoriesSpy.calledOnce, 'Should have called repository`s listCategories method once');
       assert(listProductsSpy.calledOnce, 'Should have called repository`s listProduct method once');
-      menu.should.equal(menuMock)
+      menu.should.deep.equal(menuMock);
     })
   })
 })

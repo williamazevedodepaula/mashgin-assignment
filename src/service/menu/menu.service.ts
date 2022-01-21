@@ -2,16 +2,19 @@ import { Menu } from '../../model';
 import { ICategoryRepository, IProductRepository } from '../../repository';
 import { IMenuService } from './menu.service.interface';
 
-export class MenuService implements IMenuService{
+export class MenuService implements IMenuService {
   constructor(
-    categoryRepository:ICategoryRepository,
-    productRepository:IProductRepository
-  ){}
+    private categoryRepository: ICategoryRepository,
+    private productRepository: IProductRepository
+  ) { }
 
-  public async fetchMenu():Promise<Menu>{
+  public async fetchMenu(): Promise<Menu> {
+    const categories = await this.categoryRepository.listCategories();
+    const products = await this.productRepository.listProducts();
+
     return {
-      categories:[],
-      items:[]
+      categories,
+      items: products
     }
   }
 }
