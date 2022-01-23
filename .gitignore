@@ -11,3 +11,5 @@
 */.nyc_output
 
 database/.data
+
+.data-volumes

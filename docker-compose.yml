@@ -9,7 +9,7 @@ services:
     volumes:
       - ./database/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js
       - ./resources/sample-menu.json:/docker-entrypoint-initdb.d/sample-menu.json
-      - ./database/.data:/data/db
+      - ./.data-volumes/database/.data:/data/db
     environment:
       MONGO_INITDB_ROOT_USERNAME: api
       MONGO_INITDB_ROOT_PASSWORD: mashgin-checkout-api-123
@@ -17,6 +17,9 @@ services:
   api:
     container_name: mashgin-api
     build: ./api/
+    volumes:
+      - ./resources/sample-images/:/docker-entrypoint-initfiles.d/images/
+      - ./.data-volumes/files/:/files
     environment:
       DB_HOST: db
       DB_PORT: 27017

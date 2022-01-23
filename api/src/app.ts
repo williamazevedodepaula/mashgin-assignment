@@ -10,6 +10,7 @@ app.get('/', (req:Request, res:Response) => {
 })
 
 app.use('/menu',require('./router/menu.router'))
+app.use(express.static('/files'));
 
 
 app.listen(port, () => {
