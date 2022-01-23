@@ -23,7 +23,7 @@ class ControllersModule{
     //Repositories
     this.categoriesRepository = new CategoryRepository(this.mongoConnectionFactory);
     this.productRepository = new ProductRepository(this.mongoConnectionFactory);
-    this.orderRepository = new OrderRepository();
+    this.orderRepository = new OrderRepository(this.mongoConnectionFactory);
     //Services
     this.menuService = new MenuService(this.categoriesRepository,this.productRepository);
     this.orderService = new OrderService(this.orderRepository);

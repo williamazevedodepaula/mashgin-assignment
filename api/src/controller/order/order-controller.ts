@@ -1,4 +1,4 @@
-import { RequiredFieldException } from '../../exception';
+import { EmptyArrayException, RequiredFieldException } from '../../exception';
 import { Order, OrderItem, Payment } from '../../model';
 import { IOrderService } from '../../service/order/order.service.interface';
 import { IOrderController } from './order-controller.interface';
@@ -15,6 +15,7 @@ export class OrderController implements IOrderController{
   private validateOrder(data:any){
     if(!data.payment) throw new RequiredFieldException('payment');
     if(!data.items) throw new RequiredFieldException('items');
+    if(data.items.length == 0) throw new EmptyArrayException('items');
 
     return <Order>{
       payment: this.validatePayment(data.payment),

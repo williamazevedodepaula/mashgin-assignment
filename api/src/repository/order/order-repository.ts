@@ -8,8 +8,13 @@ export class OrderRepository implements IOrderRepository{
   ) { }
   async create(order:Order):Promise<Order>{
     const conn = await this.getConnection();
-    const _order = await conn.collection('Orders').insertOne(order);
-    return {...order,id:_order.insertedId.toString()}
+    const result = await conn.collection('Orders').insertOne(order);
+    order = {
+      ...order,
+      id: result.insertedId.toString(),
+    };
+    delete (<any>order)._id;
+    return order
   }
 
   private async getConnection() {

@@ -6,7 +6,7 @@ import { assert } from 'chai';
 import { Order } from '../../model';
 import * as chai from 'chai';
 import * as chaiAsPromised from 'chai-as-promised';
-import { RequiredFieldException } from '../../exception';
+import { EmptyArrayException, RequiredFieldException } from '../../exception';
 chai.use(<any>chaiAsPromised);
 
 describe('OrderController', () => {
@@ -96,6 +96,12 @@ describe('OrderController', () => {
         delete _orderPayload.items;
 
         await orderController.createNewOrder(_orderPayload).should.eventually.be.rejectedWith(RequiredFieldException).and.to.include({ field: 'items' });
+      })
+
+      it('Should check if at least one order items is informed', async () => {
+        const _orderPayload: any = { ...orderPayload, items:[] };
+
+        await orderController.createNewOrder(_orderPayload).should.eventually.be.rejectedWith(EmptyArrayException).and.to.include({ field: 'items' });
       })
 
       it('Should check if the item`s product_id is informed', async () => {
