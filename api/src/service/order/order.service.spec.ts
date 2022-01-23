@@ -1,7 +1,7 @@
 import 'mocha';
 import 'chai/register-should';
 import { Order } from '../../model';
-import { IOrderRepository } from '../../repository';
+import { IOrderRepository, IProductRepository } from '../../repository';
 import * as sinon from 'sinon';
 import { assert } from 'chai';
 import { IOrderService } from './order.service.interface';
@@ -17,12 +17,17 @@ describe('OrderService', () => {
     listOrders: async () => ([{ ...orderMock as Order, id: '1', total: 25 }]),
     create: async () => ({ ...orderMock as Order, id: '1', total: 25 })
   };
+  let productRepositoryMock: IProductRepository = {
+    listProducts:async()=>([]),
+    findProductById: async(id:string|number)=>({id,name:'product name', image_id:'1',category_id:'1',price:10})
+  };
 
   let orderService: IOrderService;
 
   beforeEach('prepare the controller and create the mocks', () => {
     orderService = new OrderService(
-      ordersRepositoryMock
+      ordersRepositoryMock,
+      productRepositoryMock,
     );
 
     orderMock = {
@@ -50,6 +55,12 @@ describe('OrderService', () => {
     it('Should validate the value of the order items', async () => {
       orderMock.items![0].price = -20;
       await orderService.createNewOrder(orderMock).should.eventually.be.rejectedWith(ApplicationException).and.to.include({ message: 'The field "price" should have a positive value' });;
+    })
+
+    it('Should validate if the product exists', async () => {
+      sinon.stub(productRepositoryMock,'findProductById').resolves(undefined);
+      orderMock.items![0].product_id = 13;
+      await orderService.createNewOrder(orderMock).should.eventually.be.rejectedWith(ApplicationException).and.to.include({ message: 'The product with id "13" does not exist' });;
     })
   })
 

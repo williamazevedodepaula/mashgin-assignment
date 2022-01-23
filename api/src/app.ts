@@ -13,11 +13,19 @@ app.use(express.static('/files'));
 app.get('/', (req:Request, res:Response) => {
   res.send(`
     <h1>Checkout Menu API!</h1>
+
+    <h4>Menu</h4>
     <ul>
       <li> Fetch menu: GET <a href="/menu">/menu</a></li>
+    </ul>
+    <h4>Order</h4>
+    <ul>
       <li> Put order: POST /orders
       <li> List orders: GET <a href="/orders">/orders</a></li>
-      <li> Fetch images: /images/:imageId
+    </ul>
+    <h4>Image</h4>
+    <ul>
+      <li> Download images: /images/:imageId
     </ul>
   `)
 })

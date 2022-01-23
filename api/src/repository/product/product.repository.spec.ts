@@ -7,6 +7,7 @@ import { assert } from 'chai';
 describe('ProductRepository', () => {
   let getConnectionSpy: sinon.SinonSpy;
   let collectionSpy: sinon.SinonSpy;
+  let findProductSpy: sinon.SinonSpy;
 
   let productRepository: ProductRepository;
   let connectionFacotryMock: IMongoDBConnectionFactory = {
@@ -18,6 +19,15 @@ describe('ProductRepository', () => {
     },
     find() {
       return this;
+    },
+    async findOne(filter:any) {
+      return {
+        "_id": 11,
+        "category_id": 1,
+        "image_id": "293202f9d9f7f4",
+        "name": "Bagel",
+        "price": 2.0
+      };
     },
     async toArray() {
       return [
@@ -45,13 +55,14 @@ describe('ProductRepository', () => {
 
   beforeEach('prepare the stubs', () => {
     collectionSpy = sinon.spy(<any>connectionFacotryMock, 'collection');
+    findProductSpy = sinon.spy(<any>connectionFacotryMock, 'findOne');
   })
 
   afterEach(() => {
     sinon.restore();
   })
 
-  describe('Testing list categories method', () => {
+  describe('Testing listProducts method', () => {
     it('Should use connection to list the documents from Products collection', async () => {
       const result = await productRepository.listProducts();
       assert(collectionSpy.calledWith('Products'), 'Should have connected to the correct collection');
@@ -76,6 +87,25 @@ describe('ProductRepository', () => {
           "price": 1.0
         },
       ])
+    })
+  })
+
+  describe('Testing findProductById method', () => {
+    it('Should use connection to find the document in Products collection', async () => {
+      const result = await productRepository.findProductById(1);
+      assert(collectionSpy.calledOnceWith('Products'), 'Should have connected to the correct collection');
+    })
+
+    it('Should find the product and convert it from database to the format defined in model', async () => {
+      const result = await productRepository.findProductById(11);
+      assert(findProductSpy.calledOnceWith({_id:11}), 'Should have passed the correct ID to the query');
+      result!.should.deep.equal({
+        "id": 11,
+        "category_id": 1,
+        "image_id": "293202f9d9f7f4",
+        "name": "Bagel",
+        "price": 2.0
+      })
     })
   })
 })

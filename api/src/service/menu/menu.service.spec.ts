@@ -16,6 +16,7 @@ describe('MenuService',()=>{
   let listProductsSpy:sinon.SinonSpy;
 
   let productRepositoryMock:IProductRepository = {
+    findProductById:async(id:string|number)=>(productsMock[0]),
     listProducts:async()=>(productsMock)
   };
   let categoriesRepositoryMock:ICategoryRepository = {

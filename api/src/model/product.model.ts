@@ -3,5 +3,5 @@ export interface Product{
   name: string
   price: number
   image_id: string
-  category_id: number
+  category_id: number|string
 }

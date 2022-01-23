@@ -26,7 +26,7 @@ class ControllersModule{
     this.orderRepository = new OrderRepository(this.mongoConnectionFactory);
     //Services
     this.menuService = new MenuService(this.categoriesRepository,this.productRepository);
-    this.orderService = new OrderService(this.orderRepository);
+    this.orderService = new OrderService(this.orderRepository, this.productRepository);
     //Controllers
     this.menuController = new MenuController(this.menuService);
     this.orderController = new OrderController(this.orderService);
