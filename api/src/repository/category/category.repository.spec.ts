@@ -5,7 +5,7 @@ import { Db } from 'mongodb';
 import * as sinon from 'sinon';
 import { assert } from 'chai';
 
-describe('CategoryRepository', () => {
+describe('Unit tests: CategoryRepository', () => {
   let getConnectionSpy: sinon.SinonSpy;
   let collectionSpy: sinon.SinonSpy;
 
