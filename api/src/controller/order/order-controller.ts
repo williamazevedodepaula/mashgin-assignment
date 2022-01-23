@@ -12,6 +12,10 @@ export class OrderController implements IOrderController{
     return this.orderService.createNewOrder(order);
   }
 
+  public async listOrders():Promise<Order[]>{
+    return this.orderService.listOrders();
+  }
+
   private validateOrder(data:any){
     if(!data.payment) throw new RequiredFieldException('payment');
     if(!data.items) throw new RequiredFieldException('items');

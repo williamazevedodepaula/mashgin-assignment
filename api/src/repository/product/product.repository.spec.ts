@@ -29,7 +29,7 @@ describe('ProductRepository', () => {
           "price": 2.0
         },
         {
-          "id": 2,
+          "_id": 2,
           "category_id": 1,
           "image_id": "808916fd5ddf96",
           "name": "Croissant",

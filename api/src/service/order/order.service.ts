@@ -14,6 +14,10 @@ export class OrderService implements IOrderService{
     return this.orderRepository.create({...order, total});
   }
 
+  async listOrders():Promise<Order[]>{
+    return this.orderRepository.listOrders();
+  }
+
   private validateItem(item:OrderItem){
     if(item.price < 0){
       throw new ApplicationException('negativePrice','The field "price" should have a positive value');

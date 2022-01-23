@@ -16,6 +16,7 @@ app.get('/', (req:Request, res:Response) => {
     <ul>
       <li> Fetch menu: GET <a href="/menu">/menu</a></li>
       <li> Put order: POST /orders
+      <li> List orders: GET <a href="/orders">/orders</a></li>
       <li> Fetch images: /images/:imageId
     </ul>
   `)

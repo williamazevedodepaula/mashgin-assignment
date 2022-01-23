@@ -14,9 +14,11 @@ describe('OrderController', () => {
   let orderMock: Order;
   let orderPayload: any;
 
-  let createnewOrderSpy: sinon.SinonSpy;
+  let listOrdersSpy: sinon.SinonSpy;
+  let createNewOrderSpy: sinon.SinonSpy;
 
   let orderServiceMock: IOrderService = {
+    listOrders: async () => ([orderMock]),
     createNewOrder: async () => (orderMock)
   };
 
@@ -49,7 +51,8 @@ describe('OrderController', () => {
   })
 
   beforeEach('prepare the spyes', () => {
-    createnewOrderSpy = sinon.spy(orderServiceMock, 'createNewOrder');
+    listOrdersSpy = sinon.spy(orderServiceMock, 'listOrders');
+    createNewOrderSpy = sinon.spy(orderServiceMock, 'createNewOrder');
   })
 
   afterEach(() => {
@@ -59,7 +62,7 @@ describe('OrderController', () => {
   describe('Testing createNewOrder method', () => {
     it('Should call service`s createNewOrder method', async () => {
       const order = await orderController.createNewOrder(orderPayload);
-      assert(createnewOrderSpy.calledWith(orderPayload), 'Should have passed payload to the createOrder method');
+      assert(createNewOrderSpy.calledWith(orderPayload), 'Should have passed payload to the createOrder method');
       order.should.deep.equal(orderMock)
     })
 
@@ -79,7 +82,7 @@ describe('OrderController', () => {
           new_property: 'test',
         }
       );
-      assert(createnewOrderSpy.calledWith(orderPayload), 'Should have passed payload to the createOrder method');
+      assert(createNewOrderSpy.calledWith(orderPayload), 'Should have passed payload to the createOrder method');
       order.should.deep.equal(orderMock)
     })
 
@@ -131,6 +134,14 @@ describe('OrderController', () => {
 
         await orderController.createNewOrder(_orderPayload).should.eventually.be.rejectedWith(RequiredFieldException).and.to.include({ field: 'payment.paymentMethod' });
       })
+    })
+  })
+
+  describe('Testing listOrders method',()=>{
+    it('Should call service`s listOrders method',async()=>{
+      const orders = await orderController.listOrders();
+      assert(listOrdersSpy.calledOnce, 'Should have called service`s listOrders method once');
+      orders.should.deep.equal([orderMock])
     })
   })
 })

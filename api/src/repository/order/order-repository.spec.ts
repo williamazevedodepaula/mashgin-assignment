@@ -12,19 +12,38 @@ describe('Unit tests: OrderRepository', () => {
   let orderRepository: OrderRepository;
   let orderMock: Order = {
     payment: {} as Payment,
-    items:[{} as OrderItem]
+    items: [{} as OrderItem]
   }
   let connectionFacotryMock: IMongoDBConnectionFactory = {
-    async getConnection(){
+    async getConnection() {
       return this as any;
     },
-    collection(name:string){
+    collection(name: string) {
       return this;
     },
     async insertOne() {
       return {
         insertedId: "1"
       }
+    },
+    find() {
+      return this;
+    },
+    async toArray() {
+      return [
+        {
+          "_id": "1",
+          "items": [],
+          "payment": {},
+          "total": 10,
+        },
+        {
+          "_id": "2",
+          "items": [],
+          "payment": {},
+          "total": 10,
+        },
+      ];
     }
   } as IMongoDBConnectionFactory;
 
@@ -33,7 +52,7 @@ describe('Unit tests: OrderRepository', () => {
   })
 
   beforeEach('prepare the stubs', () => {
-    collectionSpy = sinon.spy(<any>connectionFacotryMock,'collection');
+    collectionSpy = sinon.spy(<any>connectionFacotryMock, 'collection');
   })
 
   afterEach(() => {
@@ -43,11 +62,36 @@ describe('Unit tests: OrderRepository', () => {
   describe('Testing create order method', () => {
     it('Should use connection to insert the order in the Orders collection', async () => {
       const result = await orderRepository.create(orderMock);
-      assert(collectionSpy.calledWith('Orders'),'Should have connected to the correct collection');
+      assert(collectionSpy.calledWith('Orders'), 'Should have connected to the correct collection');
       result.should.deep.equal({
         id: "1",
         ...orderMock
       })
+    })
+  })
+
+  describe('Testing list orders method', () => {
+    it('Should use connection to list the documents from Orders collection', async () => {
+      const result = await orderRepository.listOrders();
+      assert(collectionSpy.calledWith('Orders'), 'Should have connected to the correct collection');
+    })
+
+    it('Should convert the orders returned from database to the format defined in model', async () => {
+      const result = await orderRepository.listOrders();
+      result.should.deep.equal([
+        {
+          "id": "1",
+          "items": [],
+          "payment": {},
+          "total": 10,
+        },
+        {
+          "id": "2",
+          "items": [],
+          "payment": {},
+          "total": 10,
+        },
+      ]);
     })
   })
 })
