@@ -24,7 +24,7 @@ describe('OrderController', () => {
 
   beforeEach('prepare the controller and create the mocks', () => {
     orderMock = {
-      id: 1,
+      id: '1',
       total: 15,
       payment: {
         network: 'visa',

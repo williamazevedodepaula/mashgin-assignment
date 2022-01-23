@@ -1,7 +1,7 @@
 import { OrderItem, Payment } from '.';
 
 export interface Order {
-  id: number
+  id: string
   total: number
   payment: Payment
   items: OrderItem[]
