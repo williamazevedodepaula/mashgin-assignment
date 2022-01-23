@@ -2,7 +2,7 @@ import { MenuController } from '../controller';
 import { CategoryRepository, ProductRepository } from '../repository';
 import { Db, MongoClient } from 'mongodb';
 import { MenuService } from '../service/menu/menu.service';
-import { MongoDBConnectionFactory } from '../repository/mongoDbConnectionFactory';
+import { MongoDBConnectionFactory } from '../repository/mongo-db-connection-factory';
 
 
 
@@ -16,7 +16,7 @@ class ControllersModule{
   constructor(){
     this.mongoConnectionFactory = new MongoDBConnectionFactory();
     this.categoriesRepository = new CategoryRepository(this.mongoConnectionFactory);
-    this.productRepository = new ProductRepository();
+    this.productRepository = new ProductRepository(this.mongoConnectionFactory);
     this.menuService = new MenuService(this.categoriesRepository,this.productRepository);
     this.menuController = new MenuController(this.menuService);
   }
