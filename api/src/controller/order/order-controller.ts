@@ -33,12 +33,10 @@ export class OrderController implements IOrderController{
   }
 
   private validatePayment(data:any){
-    if(!data.value) throw new RequiredFieldException('payment.value');
     if(!data.network) throw new RequiredFieldException('payment.network');
     if(!data.paymentMethod) throw new RequiredFieldException('payment.paymentMethod');
 
     return <Payment>{
-      value: data.value,
       network: data.network,
       paymentMethod: data.paymentMethod,
     }

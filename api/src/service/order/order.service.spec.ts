@@ -10,10 +10,10 @@ import { ApplicationException } from '../../exception';
 
 describe('OrderService',()=>{
   let createOrderSpy:sinon.SinonSpy;
-  let orderMock:Order;
+  let orderMock:Partial<Order>;
 
   let ordersRepositoryMock:IOrderRepository = {
-    create:async()=>({...orderMock,id:1})
+    create:async()=>({...orderMock as Order,id:1,total: 25})
   };
 
   let orderService:IOrderService;
@@ -25,7 +25,7 @@ describe('OrderService',()=>{
 
     orderMock = {
       items: [{price: 10, product_id: 1},{price: 8, product_id: 2},{price: 7, product_id: 3}],
-      payment: {network: 'visa', paymentMethod: 'card', value: 10},
+      payment: {network: 'visa', paymentMethod: 'card'},
     }
   })
 
@@ -41,7 +41,7 @@ describe('OrderService',()=>{
     it('Should calculate the total value and pass the order to the repository',async()=>{
       const order = await orderService.createNewOrder(orderMock);
       assert(createOrderSpy.calledWith({...orderMock, total: 25}), 'Should have called repository`s create method with the orderMock and the total');
-      order.should.deep.equal({...orderMock,id:1});
+      order.should.deep.equal({...orderMock,  total: 25, id:1});
     })
 
     it('Should validate the value of the order items',async()=>{

@@ -1,5 +1,5 @@
 import { Order } from '../../model';
 
 export interface IOrderRepository{
-  create(data:Order):Promise<Order>
+  create(data:Partial<Order>):Promise<Order>
 }

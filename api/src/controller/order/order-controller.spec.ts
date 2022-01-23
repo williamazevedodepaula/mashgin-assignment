@@ -29,7 +29,6 @@ describe('OrderController', () => {
       payment: {
         network: 'visa',
         paymentMethod: 'card',
-        value: 15
       },
       items: [
         {
@@ -111,13 +110,6 @@ describe('OrderController', () => {
         delete _orderPayload.items[1].price;
 
         await orderController.createNewOrder(_orderPayload).should.eventually.be.rejectedWith(RequiredFieldException).and.to.include({ field: 'items.price' });
-      })
-
-      it('Should check if the payment`s value is informed', async () => {
-        const _orderPayload: any = { ...orderPayload };
-        delete _orderPayload.payment.value;
-
-        await orderController.createNewOrder(_orderPayload).should.eventually.be.rejectedWith(RequiredFieldException).and.to.include({ field: 'payment.value' });
       })
 
       it('Should check if the payment`s network is informed', async () => {

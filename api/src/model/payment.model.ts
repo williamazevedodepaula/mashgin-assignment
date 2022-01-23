@@ -1,6 +1,4 @@
-export interface Payment{
-  id?: string
-  value?: number
-  paymentMethod?: string
+export interface Payment {
+  paymentMethod: string
   network?: string
 }
