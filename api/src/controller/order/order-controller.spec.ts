@@ -33,33 +33,18 @@ describe('OrderController', () => {
       },
       items: [
         {
-          id: '1',
           price: 10,
           product_id: 1
         },
         {
-          id: '2',
           price: 5,
           product_id: 2
         }
       ]
     }
     orderPayload = {
-      payment: {
-        network: 'visa',
-        paymentMethod: 'card',
-        value: 15
-      },
-      items: [
-        {
-          price: 10,
-          product_id: 1
-        },
-        {
-          price: 5,
-          product_id: 2
-        }
-      ]
+      payment: orderMock.payment,
+      items: orderMock.items,
     }
     orderController = new OrderController(orderServiceMock);
   })
