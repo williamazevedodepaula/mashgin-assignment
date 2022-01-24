@@ -110,10 +110,10 @@
             "required": true,
             "style": "simple",
             "explode": false,
-            "example": "eba73b2361fae3.jpg",
             "schema": {
               "type": "string"
-            }
+            },
+            "example": "eba73b2361fae3.jpg"
           }
         ],
         "responses": {
