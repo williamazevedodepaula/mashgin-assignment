@@ -17,6 +17,7 @@ app.use('/orders',require('./router/order.router'))
 app.use(express.static('/files'));//@TODO handle errors to setup 'Content-Type', 'application/json' in header
 
 //Create route for documentation
+//@TODO setup swagger to take host and port from .env
 const swaggerFile = require('./swagger.json')
 app.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerFile))
 
