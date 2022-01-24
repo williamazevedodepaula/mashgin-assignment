@@ -5,9 +5,14 @@ import { PaymentForm } from './PaymentForm';
 export default {
   title: 'Atoms/PaymentForm',
   component: PaymentForm,
+  args:{
+    onSubmitPayment: ()=>{ //@TODO use actions
+      console.log('TEST')
+    }
+  }
 } as ComponentMeta<typeof PaymentForm>;
 
-const Template: ComponentStory<typeof PaymentForm> = (args) => <PaymentForm />;
+const Template: ComponentStory<typeof PaymentForm> = (args) => <PaymentForm {...args}/>;
 
 export const Default = Template.bind({});
 Default.args = {

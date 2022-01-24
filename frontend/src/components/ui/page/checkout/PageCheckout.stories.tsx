@@ -1,16 +1,17 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import sampleMenu from '../../../../../.storybook/resources/sample-menu.json';
-import { CartFooter } from './CartFooter';
+import { PageCheckout } from './PageCheckout';
 
 const prod1 = sampleMenu.items[0];
 const prod2 = sampleMenu.items[3];
 
 export default {
-  title: 'Atoms/CartFooter',
-  component: CartFooter,
-  args:{
-    order:{
+  title: 'Pages/Checkout',
+  component: PageCheckout,
+  args: {
+    menu: sampleMenu,
+    order: {
       items: [{
         price: prod1.price,
         product_id: prod1.id,
@@ -20,10 +21,11 @@ export default {
         product_id: prod2.id,
       }]
     },
+    imagesBaseUrl: './sample-images',
   }
-} as ComponentMeta<typeof CartFooter>;
+} as ComponentMeta<typeof PageCheckout>;
 
-const Template: ComponentStory<typeof CartFooter> = (args) => <CartFooter {...args}/>;
+const Template: ComponentStory<typeof PageCheckout> = (args) => <PageCheckout {...args}/>;
 
 export const Default = Template.bind({});
 Default.args = {
