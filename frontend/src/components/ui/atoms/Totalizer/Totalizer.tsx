@@ -1,3 +1,9 @@
-export const Totalizer = ()=>{
-  return <div>Display the Totalizer</div>
+export interface TotalizerProps{
+  total: number
+}
+
+export const Totalizer = (props:TotalizerProps)=>{
+  return <div>
+    <h1>Total $ {props.total}</h1>
+  </div>
 }
