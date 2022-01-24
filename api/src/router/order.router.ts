@@ -6,6 +6,7 @@ const express = require('express');
 const router = express.Router();
 
 router.post('/', async (req: Request, res: Response) => {
+  res.setHeader('Content-Type', 'application/json');//@TODO check availability of using middleware
   try {
     res.send(
       await controllersModule.orderController.createNewOrder(req.body)
@@ -14,6 +15,7 @@ router.post('/', async (req: Request, res: Response) => {
     handleHttpError(error as Error,res);
   }
 }).get('/', async (req: Request, res: Response) => {
+  res.setHeader('Content-Type', 'application/json');//@TODO check availability of using middleware
   try {
     res.send(
       await controllersModule.orderController.listOrders()

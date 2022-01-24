@@ -1,0 +1,348 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Checkout API",
+    "description": "API for order checkout - assignment for Software Engineer role in Mashgin Inc.",
+    "version": "0.1"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000"
+    }
+  ],
+  "paths": {
+    "/orders": {
+      "get": {
+        "description": "List all registered orders",
+        "responses": {
+          "200": {
+            "description": "Orders listed successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Menu"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "an unknown error has occurried"
+          }
+        }
+      },
+      "post": {
+        "description": "Register a new order",
+        "requestBody": {
+          "description": "The informations about order itens (products) and payment needed to register the order",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegisterNewOrder"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Order registered successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Menu"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "an exception related to business logic has occurried",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApplicationException"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "validation exception in the payload",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationException"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "an unknown error has occurried"
+          }
+        }
+      }
+    },
+    "/menu": {
+      "get": {
+        "description": "Fetches the menu, listing all products available for sales and its categories",
+        "responses": {
+          "200": {
+            "description": "Menu fetched successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Menu"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "an unknown error has occurried"
+          }
+        }
+      }
+    },
+    "/images/{filename}": {
+      "get": {
+        "description": "download an image from the imagens directory",
+        "parameters": [
+          {
+            "name": "filename",
+            "in": "path",
+            "description": "image filename with extension",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "example": "eba73b2361fae3.jpg",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "image returned successfully"
+          },
+          "400": {
+            "description": "image not found"
+          },
+          "500": {
+            "description": "an unknown error has occurried"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Menu": {
+        "type": "object",
+        "properties": {
+          "categories": {
+            "type": "array",
+            "description": "The categories available in the menu",
+            "items": {
+              "$ref": "#/components/schemas/Category"
+            }
+          },
+          "items": {
+            "type": "array",
+            "description": "The products available in the menu",
+            "items": {
+              "$ref": "#/components/schemas/Product"
+            }
+          }
+        },
+        "description": "Describes the menu. The menu is a collection of categories and products available for sale"
+      },
+      "Category": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "description": "The id of the category",
+            "example": 3,
+            "oneOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "image_id": {
+            "type": "string",
+            "description": "The filename of the category`s image, without the extension",
+            "example": "eba73b2361fae3"
+          },
+          "name": {
+            "type": "string",
+            "description": "The name of the category",
+            "example": "Drinks"
+          }
+        },
+        "description": "Describes a category of products"
+      },
+      "Product": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "description": "The id of the product",
+            "example": 9,
+            "oneOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "image_id": {
+            "type": "string",
+            "description": "The filename of the product`s image, without the extension",
+            "example": "70c2a6247e7b58"
+          },
+          "name": {
+            "type": "string",
+            "description": "The name of the product",
+            "example": "mall Drink"
+          },
+          "prive": {
+            "type": "number",
+            "description": "The sales price of the product",
+            "example": 5.8
+          },
+          "category_id": {
+            "description": "The id of the product`s category",
+            "example": 3,
+            "oneOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          }
+        },
+        "description": "Describes a product"
+      },
+      "Payment": {
+        "type": "object",
+        "properties": {
+          "paymentMethod": {
+            "type": "string",
+            "description": "the payment method",
+            "example": "credit_card"
+          },
+          "network": {
+            "type": "string",
+            "description": "the payment network",
+            "example": "visa"
+          }
+        },
+        "description": "Describes the payment data of an order"
+      },
+      "OrderItem": {
+        "type": "object",
+        "properties": {
+          "product_id": {
+            "description": "the Id of the product",
+            "example": 1,
+            "oneOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "price": {
+            "type": "number",
+            "description": "the price of the product when the order was placed",
+            "example": 10.5
+          }
+        },
+        "description": "Describes an item added to the order"
+      },
+      "RegisterNewOrder": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "description": "the order items",
+            "items": {
+              "$ref": "#/components/schemas/OrderItem"
+            }
+          },
+          "payment": {
+            "$ref": "#/components/schemas/Payment"
+          }
+        },
+        "description": "Describes the data required to registar a new order"
+      },
+      "Order": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "The order id",
+            "example": "61edac5a799131980e3bcbce"
+          },
+          "total": {
+            "type": "number",
+            "description": "The total value of the order (the sum of the price of all items)",
+            "example": 10
+          },
+          "items": {
+            "type": "array",
+            "description": "the order items",
+            "items": {
+              "$ref": "#/components/schemas/OrderItem"
+            }
+          },
+          "payment": {
+            "$ref": "#/components/schemas/Payment"
+          }
+        },
+        "description": "Describes an order"
+      },
+      "ApplicationException": {
+        "type": "object",
+        "properties": {
+          "errorCode": {
+            "type": "string",
+            "description": "A unique code identifying the type of error",
+            "example": "negativePrice"
+          },
+          "message": {
+            "type": "string",
+            "description": "A detailed message about the error",
+            "example": "The field \"price\" should have a positive value"
+          }
+        },
+        "description": "Describes exceptions related to business logic"
+      },
+      "ValidationException": {
+        "type": "object",
+        "properties": {
+          "errorCode": {
+            "type": "string",
+            "description": "A unique code identifying the type of error",
+            "example": "negativePrice"
+          },
+          "field": {
+            "type": "string",
+            "description": "A unique code identifying the type of error",
+            "example": "price"
+          },
+          "message": {
+            "type": "string",
+            "description": "A detailed message about the error",
+            "example": "The field \"price\" should have a positive value"
+          }
+        },
+        "description": "Describes exceptions related to payload with invalid payload"
+      }
+    }
+  }
+}

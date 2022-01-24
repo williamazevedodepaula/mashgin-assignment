@@ -5,6 +5,7 @@ const express = require('express');
 const router = express.Router();
 
 router.get('/', async (req: Request, res: Response) => {
+  res.setHeader('Content-Type', 'application/json');//@TODO check availability of using middleware
   res.send(
     await controllersModule.menuController.fetchMenu()
   )

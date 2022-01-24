@@ -1,5 +1,5 @@
 export class ValidationException extends Error{
-  constructor(msg:string){
-    super(`A validation error has occuried: ${msg}`);
+  constructor(public message:string){
+    super(`A validation error has occuried: ${message}`);
   }
 }
