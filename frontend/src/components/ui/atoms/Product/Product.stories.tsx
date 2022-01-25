@@ -10,6 +10,7 @@ export default {
   component: Product,
   args: {
     checkout: false,
+    amountInCart: 3,
     imagesBaseUrl: './sample-images',
     ...product
   }
@@ -20,4 +21,10 @@ const Template: ComponentStory<typeof Product> = (args) => <Product {...args}/>;
 export const Default = Template.bind({});
 Default.args = {
 
+};
+
+
+export const Checkout = Template.bind({});
+Checkout.args = {
+  checkout: true
 };

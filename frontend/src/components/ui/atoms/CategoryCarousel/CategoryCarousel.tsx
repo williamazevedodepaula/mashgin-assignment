@@ -7,18 +7,14 @@ export interface CategoryCarouselProps {
 }
 
 export const CategoryCarousel = (props: CategoryCarouselProps) => {
-  return <div>
-    Product List
-    <ul>
-      {props.categories.map((category: ICategory, index: number) =>
-        <li><Category
-          key={index}
-          imagesBaseUrl={props.imagesBaseUrl}
-          {...category}
-        />)
-        </li>
+  return <div className="d-flex justify-content-center">
+    {props.categories.map((category: ICategory, index: number) =>
+      <Category
+          key = { index }
+          imagesBaseUrl = { props.imagesBaseUrl }
+          { ...category }
+      />
       )}
-    </ul>
 
   </div>
 }

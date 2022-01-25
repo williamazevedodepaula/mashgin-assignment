@@ -7,19 +7,18 @@ export interface ProductListProps {
 }
 
 export const ProductList = (props: ProductListProps) => {
-  return <div>
-    Product List
-    <ul>
-      {props.items.map((product: IProduct, index: number) =>
-        <li><Product
+  return <div className="d-flex justify-content-start flex-wrap">
+    {
+      props.items.map((product: IProduct, index: number) =>
+      <div className="p-2">
+        <Product
           key={index}
+          amountInCart={0}//@TODO
           checkout={props.checkout}
           imagesBaseUrl={props.imagesBaseUrl}
           {...product}
-        />)
-        </li>
-      )}
-    </ul>
-
+        />
+        </div>)
+    }
   </div>
 }

@@ -11,7 +11,7 @@ export default {
   args:{
     ...category,
     imagesBaseUrl: './sample-images',
-  }
+  },
 } as ComponentMeta<typeof Category>;
 
 const Template: ComponentStory<typeof Category> = (args) => <Category {...args}/>;

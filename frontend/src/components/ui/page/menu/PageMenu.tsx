@@ -19,7 +19,7 @@ export const PageMenu = function (props: PageMenuProps) {
       imagesBaseUrl={props.imagesBaseUrl}/>
     <Totalizer total={props.order.total || 0} />
     <ProductList
-      checkout={true}
+      checkout={false}
       imagesBaseUrl={props.imagesBaseUrl}
       items={props.menu.items}/>
     <CartFooter order={props.order}/>
