@@ -1,6 +1,5 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
-import sampleMenu from '../../../../../.storybook/resources/sample-menu.json';
 import { Card } from './Card';
 
 

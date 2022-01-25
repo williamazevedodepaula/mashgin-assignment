@@ -28,3 +28,11 @@ services:
     depends_on:
       - db
     command: 'npm start'
+  frontend:
+    container_name: mashgin-frontend
+    build: ./frontend/
+    environment:
+      API_URL: http://localhost:3000
+    ports:
+      - '3001:3000'
+    command: 'npm start'
