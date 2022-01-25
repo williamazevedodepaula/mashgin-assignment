@@ -1,23 +1,27 @@
 import { O_DIRECTORY } from 'constants'
 import { IMenu, IOrder, IProduct } from '../../../../types'
 import { CartFooter } from '../../atoms/CartFooter/CartFooter'
-import { CategoryCarousel } from '../../atoms/CategoryCarousel/CategoryCarousel'
-import { PaymentForm } from '../../atoms/PaymentForm/PaymentForm'
+import { CategoryList } from '../../atoms/CategoryList/CategoryList'
 import { ProductList } from '../../atoms/ProductList/ProductList'
 import { Totalizer } from '../../atoms/Totalizer/Totalizer'
 
 export interface PageMenuProps {
   menu: IMenu,
   order: IOrder,
-  imagesBaseUrl: string
+  imagesBaseUrl: string,
+  onGoToCheckoutClick:()=>void
+  onClearCartClick:()=>void
 }
 
 export const PageMenu = function (props: PageMenuProps) {
   return <div>
-    <CategoryCarousel
+    <CategoryList
       categories={props.menu.categories}
       imagesBaseUrl={props.imagesBaseUrl}/>
-    <Totalizer total={props.order.total || 0} />
+    <Totalizer
+      order={props.order}
+      onClearCartClick={props.onClearCartClick}
+      onGoToCheckoutClick={props.onGoToCheckoutClick}/>
     <ProductList
       checkout={false}
       imagesBaseUrl={props.imagesBaseUrl}

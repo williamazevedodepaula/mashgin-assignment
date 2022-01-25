@@ -9,6 +9,8 @@ export interface PageCheckoutProps {
   menu: IMenu,
   order: IOrder,
   imagesBaseUrl: string
+  onGoToCheckoutClick:()=>void
+  onClearCartClick:()=>void
 }
 
 export const PageCheckout = function (props: PageCheckoutProps) {
@@ -18,7 +20,10 @@ export const PageCheckout = function (props: PageCheckoutProps) {
   }
 
   return <div>
-    <Totalizer total={props.order?.total || 0} />
+    <Totalizer
+      order={props.order}
+      onClearCartClick={props.onClearCartClick}
+      onGoToCheckoutClick={props.onGoToCheckoutClick}/>
     <PaymentForm onSubmitPayment={handleSubmitPayment}/>
     <ProductList
       checkout={true}

@@ -1,16 +1,16 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import sampleMenu from '../../../../../.storybook/resources/sample-menu.json';
-import { PageMenu } from './PageMenu';
+import { PageCategories } from './PageCategories';
 
 const prod1 = sampleMenu.items[0];
 const prod2 = sampleMenu.items[3];
 
 export default {
-  title: 'Pages/Menu',
-  component: PageMenu,
+  title: 'Pages/Categories',
+  component: PageCategories,
   args: {
-    menu: sampleMenu,
+    categories: sampleMenu.categories,
     order: {
       items: [{
         price: prod1.price,
@@ -23,9 +23,9 @@ export default {
     },
     imagesBaseUrl: './sample-images',
   },
-} as ComponentMeta<typeof PageMenu>;
+} as ComponentMeta<typeof PageCategories>;
 
-const Template: ComponentStory<typeof PageMenu> = (args) => <PageMenu {...args}/>;
+const Template: ComponentStory<typeof PageCategories> = (args) => <PageCategories {...args}/>;
 
 export const Default = Template.bind({});
 Default.args = {
