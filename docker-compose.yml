@@ -33,6 +33,8 @@ services:
     build: ./frontend/
     environment:
       API_URL: http://localhost:3000
+    volumes:
+      - ./resources/:/.storybook/resources/
     ports:
       - '3001:3000'
-    command: 'npm start'
+    command: 'npx serve build'

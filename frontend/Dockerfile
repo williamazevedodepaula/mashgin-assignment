@@ -4,9 +4,11 @@ FROM node:14-stretch
 ADD ./entrypoint.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/entrypoint.sh
 
+RUN npm install -g serve
+
 # insert source code into docker image
-RUN mkdir /api
-WORKDIR /api
+RUN mkdir /frontend
+WORKDIR /frontend
 COPY ./package.json .
 RUN npm install
 COPY . .

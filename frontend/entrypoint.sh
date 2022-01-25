@@ -4,9 +4,11 @@ npm install
 
 echo "Running entrypoint..."
 
+echo "1) Building react applcation"
+npm run build
+
 #if [ ! -d "/files/images/" ]; then
-  #echo "* Images directory is not created. Initiating with sample data..."
-  #cp /docker-entrypoint-initfiles.d/images/ /files/images/ -R
+#  cp /docker-entrypoint-initfiles.d/sample/sample-menu.json .storybook/resources/sample-menu.json
 #fi
 
 #Run container start command
