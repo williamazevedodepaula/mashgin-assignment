@@ -50,7 +50,7 @@ FilteredCategory.args = {
 };
 
 export const NoProducts = Template.bind({});
-FilteredCategory.args = {
+NoProducts.args = {
   selectedCategory:{
     id:5,
     name: 'Candy',

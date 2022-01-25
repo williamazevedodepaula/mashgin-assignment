@@ -31,3 +31,9 @@ export const Default = Template.bind({});
 Default.args = {
 
 };
+
+
+export const NoCategories = Template.bind({});
+NoCategories.args = {
+  categories: []
+};

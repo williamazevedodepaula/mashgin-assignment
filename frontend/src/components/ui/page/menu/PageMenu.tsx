@@ -16,6 +16,9 @@ export interface PageMenuProps {
 }
 
 export const PageMenu = function (props: PageMenuProps) {
+
+  const productList = filterCategory(props.menu.items,props.selectedCategory?.id);
+
   return <div>
     <TopBar title={`Mashgin - Home / ${props.selectedCategory?.name}`}/>
     <Totalizer
@@ -25,11 +28,12 @@ export const PageMenu = function (props: PageMenuProps) {
     <ProductList
       checkout={false}
       imagesBaseUrl={props.imagesBaseUrl}
-      items={filterCategory(props.menu.items,props.selectedCategory?.id)}
+      items={productList}
       itemsInCart={props.order.items||[]}
       onAddProduct={props.onAddProduct}
       onRemoveProduct={props.onRemoveProduct}
       />
+      {productList.length == 0 && <h3 className="p-4">No products to be displayed</h3>}
   </div>
 }
 
