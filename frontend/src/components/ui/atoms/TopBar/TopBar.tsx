@@ -8,7 +8,7 @@ export const TopBar = (props: TopBarProps) => {
     <div className="container-fluid">
 
       <a className="navbar-brand">
-        {props.onBackClick && <a className="nav-link" href="javascript:void()" onClick={props.onBackClick}>
+        {props.onBackClick && <a className="nav-link" href="#!" onClick={props.onBackClick}>
           <i className="fas fa-arrow-left"></i>
         </a>}
         {props.title}

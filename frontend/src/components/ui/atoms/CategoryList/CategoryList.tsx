@@ -10,9 +10,8 @@ export interface CategoryListProps {
 export const CategoryList = (props: CategoryListProps) => {
   return <div className="d-flex justify-content-center">
     {props.categories.map((category: ICategory, index: number) =>
-      <div className="p-2">
+      <div className="p-2" key={index}>
         <Category
-          key={index}
           onClick={()=>props.onCategoryClick?.(category)}
           imagesBaseUrl={props.imagesBaseUrl}
           {...category}

@@ -1,4 +1,4 @@
-import { Request, Response } from 'express'
+import { NextFunction, Request, Response } from 'express'
 
 // @TODO  read host and port from .env file
 const swaggerUi = require('swagger-ui-express')
@@ -8,6 +8,13 @@ const port = 3000
 
 
 app.use(express.json())
+
+app.use(function(req:Request, res:Response, next:NextFunction) {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST');
+  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type, Authorization');
+  next();
+});
 
 //Load application routes
 app.use('/menu',require('./router/menu.router'))

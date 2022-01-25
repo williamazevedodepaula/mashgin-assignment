@@ -13,9 +13,8 @@ export const ProductList = (props: ProductListProps) => {
   return <div className="d-flex justify-content-start flex-wrap">
     {
       props.items.map((product: IProduct, index: number) =>
-      <div className="p-2">
+      <div className="p-2" key={index}>
         <Product
-          key={index}
           amountInCart={getAmountInCart(product)}
           checkout={props.checkout}
           imagesBaseUrl={props.imagesBaseUrl}

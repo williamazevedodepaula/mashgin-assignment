@@ -18,7 +18,7 @@ export const DropDown = (props: DropDownProps) => {
       {(props.value && props.value != '') ? props.value : props.placeholder}
     </button>
     <ul className="dropdown-menu dropdown-default" aria-labelledby="dropdownMenuButton">
-      {props.valueList.map((value,index) => <li key={index}><a className="dropdown-item" href="javascript:void(0)" onClick={() => props.onSelect(value)}>{value}</a></li>)}
+      {props.valueList.map((value,index) => <li key={index}><a className="dropdown-item" href="#!" onClick={() => props.onSelect(value)}>{value}</a></li>)}
     </ul>
   </div>
 }
