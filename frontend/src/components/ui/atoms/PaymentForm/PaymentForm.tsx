@@ -14,16 +14,17 @@ export const PaymentForm = (props: PaymentFormProps) => {
   const paymentMethods = ['Credit Card', 'Debit Card', 'Pix'];
   const networks = ['Visa', 'MasterCard', 'American Express', 'Dinners'];
 
-  const [paymentMethod, setPaymentMethod] = useState('');
-  const [network, setNetwork] = useState('');
-  const [cardNumber, setCardNumber] = useState(undefined);
-  const [cardSecurityCode, setCardSecurityCode] = useState(undefined);
-  const [pixCode, setPixCode] = useState('');
+  const [paymentMethod, setPaymentMethod] = useState('' as string|undefined);
+  const [network, setNetwork] = useState('' as string|undefined);
+  const [cardNumber, setCardNumber] = useState(undefined as string|undefined);
+  const [cardSecurityCode, setCardSecurityCode] = useState(undefined as string|undefined);
+  const [pixCode, setPixCode] = useState(undefined as string|undefined);
 
   useEffect(()=>{
-    if(paymentMethod == 'Pix'){
-      setPixCode(uuidv4())
-    }
+    setPixCode((paymentMethod == 'Pix') ? uuidv4() : undefined)
+    setNetwork('');
+    setCardNumber('');
+    setCardSecurityCode('');
   },[paymentMethod])
 
 
@@ -32,7 +33,7 @@ export const PaymentForm = (props: PaymentFormProps) => {
       <div className="col-sm-6 col-xs-12 flex-fill">
         <DropDown
           placeholder="Select a payment method"
-          value={paymentMethod}
+          value={paymentMethod||''}
           valueList={paymentMethods}
           onSelect={setPaymentMethod}
         />
@@ -42,7 +43,7 @@ export const PaymentForm = (props: PaymentFormProps) => {
           <div className="col-sm-6 col-xs-12 flex-fill">
             <DropDown
               placeholder="Select a card network"
-              value={network}
+              value={network||''}
               valueList={networks}
               onSelect={setNetwork}
             />
@@ -103,9 +104,14 @@ export const PaymentForm = (props: PaymentFormProps) => {
   function handleFormSubmit(event: FormEvent) {
     event.preventDefault();
 
+    if(!paymentMethod) return;//@TODO tratar melhor
+
     const payment: IPayment = {
       paymentMethod,
       network,
+      cardNumber,
+      cardSecurityCode,
+      pixCode
     }
 
     props.onSubmitPayment(payment);

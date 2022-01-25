@@ -13,12 +13,16 @@ export interface PageCheckoutProps {
   onAddProduct: (product:IProduct) => void
   onRemoveProduct: (product:IProduct) => void
   onKeepBuyingClick: () => void
+  onFinishOrder:(order:IOrder)=> void
 }
 
 export const PageCheckout = function (props: PageCheckoutProps) {
 
   const handleSubmitPayment = (payment:IPayment)=>{
+    const orderToSubmit = Object.assign(props.order);
+    orderToSubmit.payment = payment;
 
+    props.onFinishOrder(orderToSubmit);
   }
 
   const itemsCount = props.order?.items?.length||0;
@@ -32,7 +36,10 @@ export const PageCheckout = function (props: PageCheckoutProps) {
       onClearCartClick={props.onClearCartClick}
       onGoToCheckoutClick={props.onGoToCheckoutClick}
       onKeepBuyingClick={props.onKeepBuyingClick}/>
-    <PaymentForm onSubmitPayment={handleSubmitPayment}/>
+
+    <div className="m-5">
+      <PaymentForm onSubmitPayment={handleSubmitPayment}/>
+    </div>
 
     <h4>You have {itemsCount} itens in your cart:</h4>
     <ProductList
