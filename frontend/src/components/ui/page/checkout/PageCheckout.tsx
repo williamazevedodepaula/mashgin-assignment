@@ -1,6 +1,7 @@
 import { IMenu, IOrder, IPayment, IProduct } from '../../../../types'
 import { PaymentForm } from '../../atoms/PaymentForm/PaymentForm'
 import { ProductList } from '../../atoms/ProductList/ProductList'
+import { TopBar } from '../../atoms/TopBar/TopBar'
 import { Totalizer } from '../../atoms/Totalizer/Totalizer'
 
 export interface PageCheckoutProps {
@@ -11,6 +12,7 @@ export interface PageCheckoutProps {
   onClearCartClick:()=>void
   onAddProduct: (product:IProduct) => void
   onRemoveProduct: (product:IProduct) => void
+  onKeepBuyingClick: () => void
 }
 
 export const PageCheckout = function (props: PageCheckoutProps) {
@@ -19,12 +21,20 @@ export const PageCheckout = function (props: PageCheckoutProps) {
 
   }
 
+  const itemsCount = props.order?.items?.length||0;
+
   return <div>
+    <TopBar title="Mashgin - Checkout"/>
+
     <Totalizer
+      checkout={true}
       order={props.order}
       onClearCartClick={props.onClearCartClick}
-      onGoToCheckoutClick={props.onGoToCheckoutClick}/>
+      onGoToCheckoutClick={props.onGoToCheckoutClick}
+      onKeepBuyingClick={props.onKeepBuyingClick}/>
     <PaymentForm onSubmitPayment={handleSubmitPayment}/>
+
+    <h4>You have {itemsCount} itens in your cart:</h4>
     <ProductList
       checkout={false}
       imagesBaseUrl={props.imagesBaseUrl}

@@ -2,8 +2,10 @@ import { IOrder, IOrderItem } from '../../../../types'
 
 export interface TotalizerProps {
   order: IOrder
+  checkout?: boolean
   onGoToCheckoutClick:()=>void
   onClearCartClick:()=>void
+  onKeepBuyingClick?:()=>void
 }
 
 export const Totalizer = (props: TotalizerProps) => {
@@ -23,9 +25,13 @@ export const Totalizer = (props: TotalizerProps) => {
       </div>
       <div className="p-2">
         <h6>You have {itemsCount} itens in your cart</h6>
-        <button disabled={itemsCount==0} className="btn btn-lg btn-primary" onClick={props.onGoToCheckoutClick}>
+        {!props.checkout && <button disabled={itemsCount==0} className="btn btn-lg btn-primary" onClick={props.onGoToCheckoutClick}>
           Proceed to Checkout
-        </button>
+        </button>}
+
+        {props.checkout && <button disabled={itemsCount==0} className="btn btn-lg btn-default" onClick={props.onKeepBuyingClick}>
+          Keep Buying
+        </button>}
       </div>
     </div>
   </div>

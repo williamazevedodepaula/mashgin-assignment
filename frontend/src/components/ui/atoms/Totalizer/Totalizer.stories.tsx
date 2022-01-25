@@ -11,6 +11,7 @@ export default {
   title: 'Atoms/Totalizer',
   component: Totalizer,
   args: {
+    checkout: false,
     order: {
       items: [{
         price: prod1.price,
@@ -32,10 +33,16 @@ const Template: ComponentStory<typeof Totalizer> = (args) => <Totalizer {...args
 
 export const Default = Template.bind({});
 Default.args = {
-
+  checkout: false
 };
 
 export const EmptyCart = Template.bind({});
 EmptyCart.args = {
-  order: undefined
+  order: undefined,
+  checkout: false
+};
+
+export const Checkout = Template.bind({});
+Checkout.args = {
+  checkout: true
 };

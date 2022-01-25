@@ -6,9 +6,7 @@ export default {
   title: 'Atoms/PaymentForm',
   component: PaymentForm,
   args:{
-    onSubmitPayment: ()=>{ //@TODO use actions
-      console.log('TEST')
-    }
+
   }
 } as ComponentMeta<typeof PaymentForm>;
 

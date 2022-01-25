@@ -19,6 +19,10 @@ export default {
       {
         price: prod2.price,
         product_id: prod2.id,
+      },
+      {
+        price: prod2.price,
+        product_id: prod2.id,
       }]
     },
     imagesBaseUrl: './sample-images',
