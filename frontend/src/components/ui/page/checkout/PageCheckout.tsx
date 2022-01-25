@@ -1,5 +1,3 @@
-import { O_DIRECTORY } from 'constants'
-import { useCallback } from 'react'
 import { IMenu, IOrder, IPayment, IProduct } from '../../../../types'
 import { PaymentForm } from '../../atoms/PaymentForm/PaymentForm'
 import { ProductList } from '../../atoms/ProductList/ProductList'
@@ -11,6 +9,8 @@ export interface PageCheckoutProps {
   imagesBaseUrl: string
   onGoToCheckoutClick:()=>void
   onClearCartClick:()=>void
+  onAddProduct: (product:IProduct) => void
+  onRemoveProduct: (product:IProduct) => void
 }
 
 export const PageCheckout = function (props: PageCheckoutProps) {
@@ -26,9 +26,13 @@ export const PageCheckout = function (props: PageCheckoutProps) {
       onGoToCheckoutClick={props.onGoToCheckoutClick}/>
     <PaymentForm onSubmitPayment={handleSubmitPayment}/>
     <ProductList
-      checkout={true}
+      checkout={false}
       imagesBaseUrl={props.imagesBaseUrl}
-      items={productsInCart(props.order, props.menu)}/>
+      items={productsInCart(props.order,props.menu)}
+      itemsInCart={props.order.items||[]}
+      onAddProduct={props.onAddProduct}
+      onRemoveProduct={props.onRemoveProduct}
+      />
   </div>
 }
 

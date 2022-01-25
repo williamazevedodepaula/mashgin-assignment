@@ -1,36 +1,39 @@
 import { O_DIRECTORY } from 'constants'
-import { IMenu, IOrder, IProduct } from '../../../../types'
-import { CartFooter } from '../../atoms/CartFooter/CartFooter'
-import { CategoryList } from '../../atoms/CategoryList/CategoryList'
+import { ICategory, IMenu, IOrder, IProduct } from '../../../../types'
 import { ProductList } from '../../atoms/ProductList/ProductList'
+import { TopBar } from '../../atoms/TopBar/TopBar'
 import { Totalizer } from '../../atoms/Totalizer/Totalizer'
 
 export interface PageMenuProps {
   menu: IMenu,
   order: IOrder,
+  selectedCategory:ICategory
   imagesBaseUrl: string,
   onGoToCheckoutClick:()=>void
   onClearCartClick:()=>void
+  onAddProduct: (product:IProduct) => void
+  onRemoveProduct: (product:IProduct) => void
 }
 
 export const PageMenu = function (props: PageMenuProps) {
   return <div>
-    <CategoryList
-      categories={props.menu.categories}
-      imagesBaseUrl={props.imagesBaseUrl}/>
+    <TopBar title={`Mashgin - Home / ${props.selectedCategory?.name}`}/>
     <Totalizer
       order={props.order}
       onClearCartClick={props.onClearCartClick}
-      onGoToCheckoutClick={props.onGoToCheckoutClick}/>
+      onGoToCheckoutClick={props.onGoToCheckoutClick} />
     <ProductList
       checkout={false}
       imagesBaseUrl={props.imagesBaseUrl}
-      items={props.menu.items}/>
-    <CartFooter order={props.order}/>
+      items={filterCategory(props.menu.items,props.selectedCategory?.id)}
+      itemsInCart={props.order.items||[]}
+      onAddProduct={props.onAddProduct}
+      onRemoveProduct={props.onRemoveProduct}
+      />
   </div>
 }
 
-function productsInCart(order: IOrder, menu: IMenu): IProduct[] {
-  if (!order) return [];
-  return menu.items.filter((product) => order.items.find((it) => it.product_id == product.id));
+function filterCategory(products: IProduct[],categoryId?:string|number): IProduct[] {
+  if (!categoryId) return products;
+  return products.filter((product) => product.category_id == categoryId);
 }

@@ -13,6 +13,23 @@ export default {
     items:products as IProduct[],
     checkout: false,
     imagesBaseUrl: './sample-images',
+    itemsInCart: [
+      {
+        product_id: products[0].id
+      },
+      {
+        product_id: products[0].id
+      },
+      {
+        product_id: products[4].id
+      },
+      {
+        product_id: products[0].id
+      },
+      {
+        product_id: products[5].id
+      }
+    ]
   }
 } as ComponentMeta<typeof ProductList>;
 

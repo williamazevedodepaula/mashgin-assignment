@@ -1,5 +1,6 @@
 import { ICategory, IOrder, IProduct } from '../../../../types'
 import { CategoryList } from '../../atoms/CategoryList/CategoryList'
+import { TopBar } from '../../atoms/TopBar/TopBar';
 import { Totalizer } from '../../atoms/Totalizer/Totalizer'
 
 export interface PageCategoriesProps {
@@ -20,24 +21,17 @@ export const PageCategories = function (props: PageCategoriesProps) {
   } as ICategory].concat(props.categories);
 
   return <div>
-    <nav className="navbar navbar-dark bg-dark">
-      <div className="container-fluid">
-      <a className="navbar-brand">Mashgin Checkout</a>
-        <form className="d-flex input-group w-auto">
+    <TopBar title="Mashgin - Home"/>
 
-        </form>
-      </div>
-    </nav>
-
-    <h3 className="text-center">Please, select a category:</h3>
-
-    <CategoryList
-      categories={categories}
-      imagesBaseUrl={props.imagesBaseUrl}
-      onCategoryClick={props.onCategoryClick}/>
     <Totalizer
       order={props.order}
       onClearCartClick={props.onClearCartClick}
       onGoToCheckoutClick={props.onGoToCheckoutClick} />
+
+    <h3 className="text-center">Please, select a category:</h3>
+    <CategoryList
+      categories={categories}
+      imagesBaseUrl={props.imagesBaseUrl}
+      onCategoryClick={props.onCategoryClick}/>
   </div>
 }
