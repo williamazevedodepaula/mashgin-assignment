@@ -7,7 +7,7 @@ import { Totalizer } from '../../atoms/Totalizer/Totalizer'
 export interface PageProductsProps {
   menu: IMenu,
   order: IOrder,
-  selectedCategory:ICategory
+  selectedCategory?:ICategory
   imagesBaseUrl: string,
   onGoToCheckoutClick:()=>void
   onClearCartClick:()=>void

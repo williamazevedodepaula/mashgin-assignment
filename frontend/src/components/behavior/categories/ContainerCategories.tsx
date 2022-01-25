@@ -1,16 +1,18 @@
-import { useState } from 'react'
-import { IOrder } from '../../../types';
+import { useCallback, useEffect, useState } from 'react'
+import { MenuFacade } from '../../../api-facades/menu.facade';
+import { ICategory, IMenu, IOrder } from '../../../types';
 import { PageCategories } from '../../ui/page/categories/PageCategories'
 
 export interface ContainerCategoriesProps {
+  menu:IMenu
+  order:IOrder
   imagesBaseUrl: string
 }
 
 export const ContainerCategories = (props: ContainerCategoriesProps) => {
-  const [categories, setCategories] = useState([]);
-  const [order, setOrder] = useState({} as IOrder)
 
-  const handleCategoryClick = (categoryId: string | number) => {
+
+  const handleCategoryClick = (category: ICategory | number) => {
 
   }
   const handleClearCartClick = () => {
@@ -20,9 +22,11 @@ export const ContainerCategories = (props: ContainerCategoriesProps) => {
 
   }
 
+
+
   return <PageCategories
-    order={order}
-    categories={categories}
+    order={props.order}
+    categories={props.menu.categories}
     onCategoryClick={handleCategoryClick}
     onClearCartClick={handleClearCartClick}
     onGoToCheckoutClick={handleGoToChekoutClick}

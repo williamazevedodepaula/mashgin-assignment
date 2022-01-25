@@ -9,7 +9,7 @@ export interface PageCategoriesProps {
   imagesBaseUrl: string,
   onGoToCheckoutClick:()=>void
   onClearCartClick:()=>void
-  onCategoryClick:(categoryId:string|number)=>void
+  onCategoryClick:(category:ICategory)=>void
 }
 
 export const PageCategories = function (props: PageCategoriesProps) {

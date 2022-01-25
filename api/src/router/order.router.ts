@@ -6,7 +6,11 @@ const express = require('express');
 const router = express.Router();
 
 router.post('/', async (req: Request, res: Response) => {
+  console.log('---> 2')
   res.setHeader('Content-Type', 'application/json');//@TODO check availability of using middleware
+  res.setHeader('Access-Control-Allow-Origin', '*');//@TODO check availability of using middleware
+  res.setHeader('Access-Control-Allow-Methods','GET,PUT,POST,DELETE,PATCH,OPTIONS',);//@TODO check availability of using middleware
+  res.setHeader('Access-Control-Allow-Headers','Content-Type',);//@TODO check availability of using middleware
   try {
     res.send(
       await controllersModule.orderController.createNewOrder(req.body)
@@ -23,6 +27,12 @@ router.post('/', async (req: Request, res: Response) => {
   } catch (error) {
     handleHttpError(error as Error,res);
   }
+}).options('/', async (req: Request, res: Response) => {
+  console.log('---> 1');
+  res.setHeader('Access-Control-Allow-Origin', '*');//@TODO check availability of using middleware
+  res.setHeader('Access-Control-Allow-Methods','GET,PUT,POST,DELETE,PATCH,OPTIONS',);//@TODO check availability of using middleware
+  res.setHeader('Access-Control-Allow-Headers','Content-Type',);//@TODO check availability of using middleware
+  res.send({});
 })
 
 

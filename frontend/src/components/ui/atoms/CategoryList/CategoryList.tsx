@@ -4,7 +4,7 @@ import { Product } from '../Product/Product'
 export interface CategoryListProps {
   categories: ICategory[],
   imagesBaseUrl: string,
-  onCategoryClick?:(categoryId:string|number)=>void
+  onCategoryClick?:(category:ICategory)=>void
 }
 
 export const CategoryList = (props: CategoryListProps) => {
@@ -13,7 +13,7 @@ export const CategoryList = (props: CategoryListProps) => {
       <div className="p-2">
         <Category
           key={index}
-          onClick={props.onCategoryClick}
+          onClick={()=>props.onCategoryClick?.(category)}
           imagesBaseUrl={props.imagesBaseUrl}
           {...category}
         />
