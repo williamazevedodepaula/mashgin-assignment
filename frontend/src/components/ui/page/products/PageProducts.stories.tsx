@@ -1,14 +1,14 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import sampleMenu from '../../../../../.storybook/resources/sample-menu.json';
-import { PageMenu } from './PageMenu';
+import { PageProducts } from './PageProducts';
 
 const prod1 = sampleMenu.items[0];
 const prod2 = sampleMenu.items[3];
 
 export default {
-  title: 'Pages/Menu',
-  component: PageMenu,
+  title: 'Pages/Products',
+  component: PageProducts,
   args: {
     menu: sampleMenu,
     order: {
@@ -27,9 +27,9 @@ export default {
     },
     imagesBaseUrl: './sample-images',
   },
-} as ComponentMeta<typeof PageMenu>;
+} as ComponentMeta<typeof PageProducts>;
 
-const Template: ComponentStory<typeof PageMenu> = (args) => <PageMenu {...args}/>;
+const Template: ComponentStory<typeof PageProducts> = (args) => <PageProducts {...args}/>;
 
 export const AllProducts = Template.bind({});
 AllProducts.args = {

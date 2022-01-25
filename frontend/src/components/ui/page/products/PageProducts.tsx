@@ -4,7 +4,7 @@ import { ProductList } from '../../atoms/ProductList/ProductList'
 import { TopBar } from '../../atoms/TopBar/TopBar'
 import { Totalizer } from '../../atoms/Totalizer/Totalizer'
 
-export interface PageMenuProps {
+export interface PageProductsProps {
   menu: IMenu,
   order: IOrder,
   selectedCategory:ICategory
@@ -15,7 +15,7 @@ export interface PageMenuProps {
   onRemoveProduct: (product:IProduct) => void
 }
 
-export const PageMenu = function (props: PageMenuProps) {
+export const PageProducts = function (props: PageProductsProps) {
 
   const productList = filterCategory(props.menu.items,props.selectedCategory?.id);
 
