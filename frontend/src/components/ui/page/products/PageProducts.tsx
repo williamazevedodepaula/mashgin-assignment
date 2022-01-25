@@ -13,6 +13,7 @@ export interface PageProductsProps {
   onClearCartClick:()=>void
   onAddProduct: (product:IProduct) => void
   onRemoveProduct: (product:IProduct) => void
+  onBackClick:()=> void
 }
 
 export const PageProducts = function (props: PageProductsProps) {
@@ -20,7 +21,7 @@ export const PageProducts = function (props: PageProductsProps) {
   const productList = filterCategory(props.menu.items,props.selectedCategory?.id);
 
   return <div>
-    <TopBar title={`Mashgin - Home / ${props.selectedCategory?.name}`}/>
+    <TopBar title={`Mashgin - Home / ${props.selectedCategory?.name}`} onBackClick={props.onBackClick}/>
     <Totalizer
       order={props.order}
       onClearCartClick={props.onClearCartClick}

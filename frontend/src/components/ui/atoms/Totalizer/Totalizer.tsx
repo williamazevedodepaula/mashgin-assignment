@@ -19,7 +19,7 @@ export const Totalizer = (props: TotalizerProps) => {
     </div>
     <div className="d-flex align-items-end p-2 ">
       <div className="p-2">
-        <button disabled={itemsCount==0} className="btn btn-lg" onClick={props.onClearCartClick}>
+        <button disabled={itemsCount==0} className="btn btn-warning btn-lg" onClick={props.onClearCartClick}>
           Clear cart
         </button>
       </div>

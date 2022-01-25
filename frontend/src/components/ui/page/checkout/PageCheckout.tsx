@@ -14,6 +14,7 @@ export interface PageCheckoutProps {
   onRemoveProduct: (product:IProduct) => void
   onKeepBuyingClick: () => void
   onFinishOrder:(order:IOrder)=> void
+  onBackClick:()=> void
 }
 
 export const PageCheckout = function (props: PageCheckoutProps) {
@@ -28,7 +29,7 @@ export const PageCheckout = function (props: PageCheckoutProps) {
   const itemsCount = props.order?.items?.length||0;
 
   return <div>
-    <TopBar title="Mashgin - Checkout"/>
+    <TopBar title="Mashgin - Checkout" onBackClick={props.onBackClick}/>
 
     <Totalizer
       checkout={true}
