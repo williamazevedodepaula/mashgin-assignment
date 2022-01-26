@@ -11,30 +11,28 @@ import { PageCheckout } from './ui/page/checkout/PageCheckout';
 require('mdb-ui-kit')
 
 
-
 function App() {
-  const api_url = process.env.REACT_APP_API_URL || 'http://localhost:3000';
-  const imagesBaseUrl = `${api_url}/images/`;
-  const apiFacade = new ApiFacade(api_url);
 
-  const [page,setPage] = useState('categories');
-  const [menu,setMenu] = useState({} as IMenu);
-  const [order,setOrder] = useState({items:[]} as IOrder);
-  const [selectedCategory,setSelectedCategory] = useState(undefined as ICategory|undefined);
+  const [page, setPage] = useState('categories');
+  const [menu, setMenu] = useState({} as IMenu);
+  const [order, setOrder] = useState({ items: [] } as IOrder);
+  const [selectedCategory, setSelectedCategory] = useState(undefined as ICategory | undefined);
+  const [imagesBaseUrl, setImagesBaseUrl] = useState('')
+  const [apiFacade, setApiFacade] = useState(undefined as ApiFacade | undefined)
 
-  const initData = async()=>{
-    try{
-      setMenu(await apiFacade.fetchMenu());
-    }catch(e){
+  const initData = async () => {
+    try {
+      setMenu(await apiFacade!.fetchMenu());
+    } catch (e) {
       alert('An unknown error has occurried when connecting to the server')
     }
   }
-  const handleFinishOrder = async(orderWithPayment:IOrder)=>{
-    try{
-      const savedOrder = await apiFacade.saveOrder(orderWithPayment);
+  const handleFinishOrder = async (orderWithPayment: IOrder) => {
+    try {
+      const savedOrder = await apiFacade!.saveOrder(orderWithPayment);
       handleClearCartClick();
       alert(`Order successfully registered! ID: ${savedOrder.id}`)
-    }catch(e){
+    } catch (e) {
       alert('An unknown error has occurried when saving the order')
     }
   }
@@ -44,9 +42,9 @@ function App() {
     setPage('products');
   }
   const handleClearCartClick = () => {
-    const newOrder:IOrder = {...order, items:[]};
+    const newOrder: IOrder = { ...order, items: [] };
     setOrder(newOrder);
-    if(page == 'checkout'){
+    if (page == 'checkout') {
       setPage('categories');
     }
   }
@@ -56,42 +54,59 @@ function App() {
   const handleKeepBuying = () => {
     setPage('categories');
   }
-  const handleAddProductClick = (product:IProduct) => {
-    const newOrder:IOrder = {...order};
+  const handleAddProductClick = (product: IProduct) => {
+    const newOrder: IOrder = { ...order };
     newOrder.items = [...order.items, {
       price: product.price,
       product_id: product.id
     }];
     setOrder(newOrder);
   }
-  const handleRemoveProductClick = (product:IProduct) => {
-    const newOrder:IOrder = {...order};
+  const handleRemoveProductClick = (product: IProduct) => {
+    const newOrder: IOrder = { ...order };
     newOrder.items = [...newOrder.items];
-    const prod = newOrder.items.find((it)=>it.product_id == product.id);
+    const prod = newOrder.items.find((it) => it.product_id == product.id);
 
-    if(prod) {
+    if (prod) {
       const index = newOrder.items.indexOf(prod);
-      newOrder.items.splice(index,1);
+      newOrder.items.splice(index, 1);
     }
     setOrder(newOrder);
   }
   const handleBackClick = () => {
-    switch(page){
+    switch (page) {
       case 'products':
         return setPage('categories');
       case 'checkout':
-          return setPage('products');
+        return setPage('products');
     }
   }
 
-  useEffect(()=>{
-    initData();
+  const initFacade = (apiUrl:string)=>{
+    setImagesBaseUrl(`${apiUrl}/images/`);
+    setApiFacade(new ApiFacade(apiUrl));
+  }
+
+  useEffect(() => {
+    const apiUrl = process.env.REACT_APP_API_URL;
+    if(apiUrl) return initFacade(apiUrl);
+
+    fetch('.env.json').then(response => {
+      response.json().then(settings => {
+        initFacade(settings.REACT_APP_API_URL);
+      });
+    })
   },[])
+
+  useEffect(() => {
+    if(!apiFacade) return;
+    initData();
+  }, [apiFacade])
 
   return (
     <div className="App">
       {(page == 'categories' && <PageCategories
-        order={{...order}}
+        order={{ ...order }}
         categories={menu.categories}
         onCategoryClick={handleCategoryClick}
         onClearCartClick={handleClearCartClick}
@@ -99,7 +114,7 @@ function App() {
         imagesBaseUrl={imagesBaseUrl}
       />)}
       {(page == 'products' && <PageProducts
-        order={{...order}}
+        order={{ ...order }}
         menu={menu}
         selectedCategory={selectedCategory}
         onBackClick={handleBackClick}
@@ -110,7 +125,7 @@ function App() {
         imagesBaseUrl={imagesBaseUrl}
       />)}
       {(page == 'checkout' && <PageCheckout
-        order={{...order}}
+        order={{ ...order }}
         menu={menu}
         onFinishOrder={handleFinishOrder}
         onKeepBuyingClick={handleKeepBuying}
