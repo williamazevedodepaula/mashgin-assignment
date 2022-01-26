@@ -37,4 +37,4 @@ services:
       - ./resources/:/.storybook/resources/
     ports:
       - '3001:3000'
-    command: 'npx serve build'
+    command: 'npx serve'

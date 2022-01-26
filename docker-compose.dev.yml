@@ -4,3 +4,7 @@ services:
     volumes:
       - ./api/:/api/
     command: 'npm run start:dev'
+  frontend:
+    volumes:
+      - ./frontend/:/frontend/
+    command: 'npm run start:dev'
