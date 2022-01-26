@@ -1,7 +1,7 @@
 import  axios from 'axios';
 import { IMenu, IOrder } from '../types';
 
-export class MenuFacade{
+export class ApiFacade{
   constructor(
     private baseUrl:string
   ){}

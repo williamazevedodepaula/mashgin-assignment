@@ -104,7 +104,7 @@ export const PaymentForm = (props: PaymentFormProps) => {
   function handleFormSubmit(event: FormEvent) {
     event.preventDefault();
 
-    if(!paymentMethod) return;//@TODO tratar melhor
+    if(!paymentMethod) return;//@TODO do a better treatment
 
     const payment: IPayment = {
       paymentMethod,

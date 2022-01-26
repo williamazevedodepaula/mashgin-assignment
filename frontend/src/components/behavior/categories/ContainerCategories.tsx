@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react'
-import { MenuFacade } from '../../../api-facades/menu.facade';
+import { ApiFacade } from '../../../api-facades/api.facade';
 import { ICategory, IMenu, IOrder } from '../../../types';
 import { PageCategories } from '../../ui/page/categories/PageCategories'
 

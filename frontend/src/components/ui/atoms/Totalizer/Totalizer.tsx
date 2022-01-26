@@ -37,7 +37,6 @@ export const Totalizer = (props: TotalizerProps) => {
   </div>
 }
 
-//@TODO move to utils
 function formatPrice(number: number) {
   return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(number)
 }

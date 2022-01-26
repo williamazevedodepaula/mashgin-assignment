@@ -1,15 +1,18 @@
 import { NextFunction, Request, Response } from 'express'
 
-// @TODO  read host and port from .env file
+require('dotenv').config()
 const swaggerUi = require('swagger-ui-express')
 const express = require('express')
 const app = express()
-const port = 3000
+
+const port = process.env.BACKEND_PORT||3000;
+const apiUrl = process.env.API_URL;
 
 
 app.use(express.json())
 
 app.use(function(req:Request, res:Response, next:NextFunction) {
+  res.setHeader('AContent-Type', 'application/json');
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST');
   res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type, Authorization');
@@ -21,11 +24,13 @@ app.use('/menu',require('./router/menu.router'))
 app.use('/orders',require('./router/order.router'))
 
 //Create route for static files
-app.use(express.static('/files'));//@TODO handle errors to setup 'Content-Type', 'application/json' in header
+app.use(express.static('/files'));
 
 //Create route for documentation
-//@TODO setup swagger to take host and port from .env
 const swaggerFile = require('./swagger.json')
+//Configure URL in swagger to access the api in correct address
+swaggerFile.servers[0].url = apiUrl;
+
 app.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerFile))
 
 //Create route for api 'homepage'

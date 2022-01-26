@@ -2,7 +2,7 @@ version: '3'
 services:
   db:
     ports:
-      - 27018:27017
+      - '${DATABASE_PORT}:27017'
     restart: on-failure
     container_name: mashgin-db
     image: mongo:latest
@@ -23,8 +23,10 @@ services:
     environment:
       DB_HOST: db
       DB_PORT: 27017
+    env_file:
+      - .env
     ports:
-      - '3000:3000'
+      - '${BACKEND_PORT}:${BACKEND_PORT}'
     depends_on:
       - db
     command: 'npm start'
@@ -32,9 +34,12 @@ services:
     container_name: mashgin-frontend
     build: ./frontend/
     environment:
-      API_URL: http://localhost:3000
+      - PORT=${FRONTEND_PORT}
+      - REACT_APP_API_URL=${API_URL}
+    env_file:
+      - .env
     volumes:
       - ./resources/:/.storybook/resources/
     ports:
-      - '3001:3000'
-    command: 'npx serve'
+      - '${FRONTEND_PORT}:${FRONTEND_PORT}'
+    command: 'npx serve -p ${FRONTEND_PORT}'

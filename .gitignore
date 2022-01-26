@@ -3,6 +3,8 @@
 */build
 */storybook-static
 
+.env
+
 # Logs
 */logs
 */*.log

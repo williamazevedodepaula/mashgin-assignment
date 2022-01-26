@@ -1,7 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { ContainerCategories } from './behavior/categories/ContainerCategories';
 import 'mdb-ui-kit/css/mdb.min.css';
-import { MenuFacade } from '../api-facades/menu.facade';
+import { ApiFacade } from '../api-facades/api.facade';
 import { ICategory, IMenu, IOrder, IProduct } from '../types';
 import { PageCategories } from './ui/page/categories/PageCategories';
 import { PageProducts } from './ui/page/products/PageProducts';
@@ -14,9 +13,9 @@ require('mdb-ui-kit')
 
 
 function App() {
-  //@TODO read from .env
-  const imagesBaseUrl = 'http://localhost:3000/images/';
-  const menuFacade = new MenuFacade('http://localhost:3000');
+  const api_url = process.env.REACT_APP_API_URL || 'http://localhost:3000';
+  const imagesBaseUrl = `${api_url}/images/`;
+  const apiFacade = new ApiFacade(api_url);
 
   const [page,setPage] = useState('categories');
   const [menu,setMenu] = useState({} as IMenu);
@@ -25,14 +24,14 @@ function App() {
 
   const initData = async()=>{
     try{
-      setMenu(await menuFacade.fetchMenu());
+      setMenu(await apiFacade.fetchMenu());
     }catch(e){
       alert('An unknown error has occurried when connecting to the server')
     }
   }
   const handleFinishOrder = async(orderWithPayment:IOrder)=>{
     try{
-      const savedOrder = await menuFacade.saveOrder(orderWithPayment);
+      const savedOrder = await apiFacade.saveOrder(orderWithPayment);
       handleClearCartClick();
       alert(`Order successfully registered! ID: ${savedOrder.id}`)
     }catch(e){
