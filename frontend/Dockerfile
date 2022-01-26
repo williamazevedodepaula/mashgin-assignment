@@ -8,19 +8,10 @@ RUN npm install -g serve
 
 # insert source code into docker image
 RUN mkdir /frontend
-RUN mkdir /frontend/temp
-WORKDIR /frontend/temp
+WORKDIR /frontend
 COPY ./package.json .
 RUN npm install
 COPY . .
-RUN npm run build
-RUN npm run build-storybook
-WORKDIR /frontend
-RUN mv ./temp/build/* ./
-RUN mv ./temp/storybook-static ./storybook
-RUN rm ./temp -R
 
-
-EXPOSE 3000
 ENTRYPOINT ["entrypoint.sh"]
 

@@ -12,6 +12,7 @@ export class MongoDBConnectionFactory implements IMongoDBConnectionFactory{
   }
 
   private async createConnection(){
+    //@TODO: configure the other variables
     this.connection = await MongoClient.connect(`mongodb://api:mashgin-checkout-api-123@${process.env.DB_HOST}:${process.env.DB_PORT}`);
   }
   private async connectToDatabase(){

@@ -31,15 +31,13 @@ services:
       - db
     command: 'npm start'
   frontend:
-    container_name: mashgin-frontend
+    container_name: frontend
     build: ./frontend/
     environment:
       - PORT=${FRONTEND_PORT}
       - REACT_APP_API_URL=${API_URL}
-    env_file:
-      - .env
     volumes:
       - ./resources/:/.storybook/resources/
     ports:
       - '${FRONTEND_PORT}:${FRONTEND_PORT}'
-    command: 'npx serve -p ${FRONTEND_PORT}'
+    command: 'npx serve static -p ${FRONTEND_PORT}'

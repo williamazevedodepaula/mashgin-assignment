@@ -1,10 +1,12 @@
 #!/bin/bash
 
-
 echo "Running entrypoint..."
 
-rm ./.env.json -R
-echo "{\"REACT_APP_API_URL\":\"$API_URL\"}" >> .env.json
+rm ./static -Rf
+npm run build
+npm run build-storybook
+mv ./build/ ./static
+mv ./storybook-static ./static/storybook
 
 #Run container start command
 exec  "$@"
