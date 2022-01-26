@@ -105,13 +105,13 @@ The application will be available in [http://localhost:3001](http://localhost:30
 
 ### Checkout screen
 
-![Checkout Screen](../resources/prints/1.catgories.png?raw=true "Title")
+![Checkout Screen](../resources/prints/1-catgories.png?raw=true "Title")
 
 
 ### Products screen
 
-![Checkout Screen](../resources/prints/2.products.png?raw=true "Title")
+![Checkout Screen](../resources/prints/2-products.png?raw=true "Title")
 
 ### Checkout screen
 
-![Checkout Screen](../resources/prints/3.checkout.png?raw=true "Title")
+![Checkout Screen](../resources/prints/3-checkout.png?raw=true "Title")
