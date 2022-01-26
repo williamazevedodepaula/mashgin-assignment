@@ -16,7 +16,7 @@ export const Card = (props:CardProps)=>{
   const height = `${props.height||15}rem`;
   const imageHeight = `${props.imageHeight||10}rem`;
 
-  return <a href="#!" onClick={()=>props.onClick?.(props.value)}  ><div  className={linkClassName} style={{ width,  height }}>
+  return <a href="javascript:void(0)" onClick={()=>props.onClick?.(props.value)}  ><div  className={linkClassName} style={{ width,  height }}>
     <div><img src={props.imageUrl} className="card-img-top" alt={props.imageAlt} style={{ width, height: imageHeight }} /></div>
     <div className="card-body">
       {props.children}
