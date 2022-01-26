@@ -105,7 +105,7 @@ The application will be available in [http://localhost:3001](http://localhost:30
 
 ### Checkout screen
 
-![Checkout Screen](../resources/prints/1-catgories.png?raw=true "Title")
+![Checkout Screen](../resources/prints/1-categories.png?raw=true "Title")
 
 
 ### Products screen
