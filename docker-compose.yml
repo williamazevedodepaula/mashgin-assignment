@@ -23,6 +23,9 @@ services:
     environment:
       DB_HOST: db
       DB_PORT: 27017
+      DB_NAME: checkout-db
+      DB_USER: api
+      DB_PASSWORD: mashgin-checkout-api-123
     env_file:
       - .env
     ports:

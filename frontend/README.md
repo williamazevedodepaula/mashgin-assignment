@@ -90,7 +90,7 @@ It is not recommended to run this project without docker, but you can do it as f
 1. install node v 14
 2. install the dependencies:
 ```
-run npm install
+npm install
 ```
 3. run the following command (you can change the PORT variable for another)
 ```
