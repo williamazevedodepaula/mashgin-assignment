@@ -20,3 +20,15 @@ export const Default = Template.bind({});
 Default.args = {
 
 };
+
+export const WithBrokenImagePath = Template.bind({});
+WithBrokenImagePath.args = {
+  categories:[
+    categories[0],
+    {
+      name:categories[1].name,
+      image_file:''
+    },
+    categories[2]
+  ]
+};

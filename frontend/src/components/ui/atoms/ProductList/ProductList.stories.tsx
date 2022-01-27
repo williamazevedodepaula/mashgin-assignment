@@ -6,6 +6,9 @@ import { IProduct } from '../../../../types';
 
 const products = sampleMenu.items;
 
+//Breakes one of the image paths, in order to test fallback image
+products[3].image_id = 'teste';
+
 export default {
   title: 'Atoms/ProductList',
   component: ProductList,

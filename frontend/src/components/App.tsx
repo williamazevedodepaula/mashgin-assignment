@@ -19,14 +19,20 @@ function App() {
 
   const [page,setPage] = useState('categories');
   const [menu,setMenu] = useState({} as IMenu);
+  const [loading,setLoading] = useState(true);
+  const [offline,setOffline] = useState(false);
   const [order,setOrder] = useState({items:[]} as IOrder);
   const [selectedCategory,setSelectedCategory] = useState(undefined as ICategory|undefined);
 
   const initData = async()=>{
     try{
+      setLoading(true);
       setMenu(await apiFacade.fetchMenu());
-    }catch(e){
-      alert('An unknown error has occurried when connecting to the server')
+      setLoading(false);
+    }catch(error){
+      setLoading(false);
+      setOffline(true);
+      console.error('An unknown error has occurried when connecting to the server', error);
     }
   }
 
@@ -99,6 +105,8 @@ function App() {
     <div className="App">
       {(page == 'categories' && <PageCategories
         order={{...order}}
+        loading={loading}
+        offline={offline}
         categories={menu.categories}
         onCategoryClick={handleCategoryClick}
         onClearCartClick={handleClearCartClick}

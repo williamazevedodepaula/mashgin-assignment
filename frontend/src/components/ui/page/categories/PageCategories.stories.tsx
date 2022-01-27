@@ -22,16 +22,28 @@ export default {
       }]
     },
     imagesBaseUrl: './sample-images',
+    loading: false,
+    offline: false
   },
 } as ComponentMeta<typeof PageCategories>;
 
-const Template: ComponentStory<typeof PageCategories> = (args) => <PageCategories {...args}/>;
+const Template: ComponentStory<typeof PageCategories> = (args) => <PageCategories {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {};
 
-
 export const NoCategories = Template.bind({});
 NoCategories.args = {
   categories: []
+};
+
+export const Loading = Template.bind({});
+Loading.args = {
+  loading: true
+};
+
+
+export const Offline = Template.bind({});
+Offline.args = {
+  offline: true
 };

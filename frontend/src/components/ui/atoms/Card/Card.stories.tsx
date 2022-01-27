@@ -12,7 +12,7 @@ export default {
     imageAlt: 'Image Alt',
     height: 18,
     width: 12,
-    imageHeight: 10,
+    imageHeight: 10
   },
 } as ComponentMeta<typeof Card>;
 
@@ -29,8 +29,13 @@ Default.args = {
   clickable: false
 };
 
-
 export const Clickable = ClickableTemplate.bind({});
 Clickable.args = {
   clickable:true
+};
+
+
+export const ImageNotFound = ClickableTemplate.bind({});
+ImageNotFound.args = {
+  imageUrl:'teste'
 };
