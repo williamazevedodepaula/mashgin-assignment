@@ -129,3 +129,25 @@ npm run test
 ### Tests report
 
 ![Tests Report](../resources/prints/4-unit-tests.png?raw=true "Test Report")
+
+
+## project Folder Structure
+
+The API source code is located inside the directory ```${PROJECT_ROOT/api/src}```, and it organized as follows:
+
+* **app.ts** - The application main script. It will create the Http Server, serve the images static folder and register the middleware for dealing with request haders.
+* **swagger.json** - Swagger documentation source code (json)
+* **controller**: This folder contains the **Controller** layer:
+  * **menu**: Contain the MenuController, its unit tests and interface. provides the operations bounded to the /menu API route (fetch menu)
+  * **order**: Contain the OrderController, its unit tests and interface.  provides the operations bounded to the /orders API route (create order, list orders)
+* **service**: This folder contains the **Service** layer:
+  * **menu**: Contain the MenuService, its unit tests and interface. provides business logic for fetching the menu
+  * **order**: Contain the OrderService, its unit tests and interface. provides business logic for handling orders
+* **repository**: This folder contains the **Repository** layer:
+  * **category**: Contains the CategoryRepository, its unit tests and interface. provides access to the Categories collection in the database.
+  * **order**: Contains the OrderRepository, its unit tests and interface. provides access to the Orders collection in the database.
+  * **order**: Contains the ProductRepository, its unit tests and interface. provides access to the Products collection in the database.
+  * **mongo-db-connection-factory.ts**: Contains the connection factory, responsible for connecting to the database using the environment variables.
+* **module**: Considering this is a small application, no framework was used for dependency injection. So, this module was implemented as a responsible for orchestrate the dependency injection and providing the already initialized instances of the containers so that the **app.ts** can use it.
+* **model**: definitions of each entity model.
+* **exceptions**: Custom exceptions
