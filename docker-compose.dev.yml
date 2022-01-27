@@ -5,6 +5,8 @@ services:
       - ./api/:/api/
     command: 'npm run start:dev'
   frontend:
+    environment:
+      - ENVIRONMENT=dev
     volumes:
       - ./frontend/:/frontend/
     command: 'npm run start:dev'
