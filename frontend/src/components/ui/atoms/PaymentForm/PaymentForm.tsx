@@ -2,6 +2,7 @@ import { FormEvent, useEffect, useState } from 'react'
 import { IPayment } from '../../../../types'
 import { DropDown } from '../DropDown/DropDown';
 import { v4 as uuidv4 } from 'uuid';
+import { Input } from '../Input/Input';
 
 const mdb = require('mdb-ui-kit');
 
@@ -14,18 +15,22 @@ export const PaymentForm = (props: PaymentFormProps) => {
   const paymentMethods = ['Credit Card', 'Debit Card', 'Pix'];
   const networks = ['Visa', 'MasterCard', 'American Express', 'Dinners'];
 
-  const [paymentMethod, setPaymentMethod] = useState('' as string|undefined);
-  const [network, setNetwork] = useState('' as string|undefined);
-  const [cardNumber, setCardNumber] = useState(undefined as string|undefined);
-  const [cardSecurityCode, setCardSecurityCode] = useState(undefined as string|undefined);
-  const [pixCode, setPixCode] = useState(undefined as string|undefined);
 
-  useEffect(()=>{
+  const [network, setNetwork] = useState('' as string | undefined);
+  const [pixCode, setPixCode] = useState(undefined as string | undefined);
+  const [paymentMethod, setPaymentMethod] = useState('' as string | undefined);
+  const [cardNumber, setCardNumber] = useState(undefined as string | number | undefined);
+  const [cardSecurityCode, setCardSecurityCode] = useState(undefined as string | number | undefined);
+
+  const formIsValid = (paymentMethod == 'Pix')  ?  true : (cardNumber && cardSecurityCode && network);
+
+
+  useEffect(() => {
     setPixCode((paymentMethod == 'Pix') ? uuidv4() : undefined)
     setNetwork('');
     setCardNumber('');
     setCardSecurityCode('');
-  },[paymentMethod])
+  }, [paymentMethod])
 
 
   return <div className="container container-fluid p-8">
@@ -33,7 +38,7 @@ export const PaymentForm = (props: PaymentFormProps) => {
       <div className="col-sm-6 col-xs-12 flex-fill">
         <DropDown
           placeholder="Select a payment method"
-          value={paymentMethod||''}
+          value={paymentMethod || ''}
           valueList={paymentMethods}
           onSelect={setPaymentMethod}
         />
@@ -43,50 +48,38 @@ export const PaymentForm = (props: PaymentFormProps) => {
           <div className="col-sm-6 col-xs-12 flex-fill">
             <DropDown
               placeholder="Select a card network"
-              value={network||''}
+              value={network || ''}
               valueList={networks}
               onSelect={setNetwork}
             />
           </div>
           <div className="col-sm-6 col-xs-12 flex-fill">
-            <div className="form-group">
-              <label htmlFor="cardNumber">Card Number</label>
-              <input
-                value={cardNumber}
-                onChange={(event) => setCardNumber(event.target.value as any)}
-                type="number"
-                className="form-control"
-                id="cardNumber"
-              />
-            </div>
+            <Input
+              inputId="cardNumber"
+              label="Card Number"
+              type="number"
+              value={cardNumber}
+              onChangeValue={setCardNumber} />
           </div>
           <div className="col-sm-6 col-xs-12 flex-fill">
-            <div className="form-group">
-              <label htmlFor="cardSecurityCode">Security Code</label>
-              <input
-                value={cardSecurityCode}
-                onChange={(event) => setCardSecurityCode(event.target.value as any)}
-                type="number"
-                className="form-control"
-                id="cardSecurityCode"
-              />
-            </div>
+            <Input
+              inputId="cardSecurityCode"
+              label="Security Code"
+              type="number"
+              value={cardSecurityCode}
+              onChangeValue={setCardSecurityCode} />
           </div>
         </>
       }
       {
         paymentMethod == 'Pix' && <>
           <div className="col-sm-6 col-xs-12 flex-fill">
-            <div className="form-group">
-              <label htmlFor="pixCode">Please, use the following PIX code:</label>
-              <input
-                 value={pixCode}
-                type="text"
-                className="form-control"
-                id="pixCode"
-                disabled
-              />
-            </div>
+            <Input
+              label="Please, use the following PIX code:"
+              type="text"
+              inputId="pixCode"
+              disabled={true}
+              value={pixCode} />
           </div>
         </>
       }
@@ -95,7 +88,7 @@ export const PaymentForm = (props: PaymentFormProps) => {
 
       </div>
       <div className="col-6 flex-fill pt-4  d-flex justify-content-end">
-        <button className="btn btn-lg btn-primary">Finish Order</button>
+        <button className="btn btn-lg btn-primary" disabled={!formIsValid}>Finish Order</button>
       </div>
     </form>
   </div>
@@ -104,14 +97,14 @@ export const PaymentForm = (props: PaymentFormProps) => {
   function handleFormSubmit(event: FormEvent) {
     event.preventDefault();
 
-    if(!paymentMethod) return;//@TODO do a better treatment
+    if (!paymentMethod) return;//@TODO do a better treatment
 
     const payment: IPayment = {
-      paymentMethod,
       network,
-      cardNumber,
-      cardSecurityCode,
-      pixCode
+      pixCode,
+      paymentMethod,
+      cardNumber: cardNumber?.toString(),
+      cardSecurityCode: cardSecurityCode?.toString(),
     }
 
     props.onSubmitPayment(payment);
