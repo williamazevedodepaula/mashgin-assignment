@@ -1,19 +1,17 @@
-*/node_modules
-*/dist
-*/build
-*/storybook-static
+**/node_modules
+**/dist
+**/build
+**/storybook-static
 
-.env
+**/.env
 
 # Logs
-*/logs
-*/*.log
-*/npm-debug.log*
+**/logs
+**/*.log
+**/npm-debug.log*
 
 # Coverage
-*/coverage
-*/.nyc_output
-
-database/.data
+**/coverage
+**/.nyc_output
 
 .data-volumes

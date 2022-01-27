@@ -129,5 +129,5 @@ npm run test
 
 To see more details about each project:
 
-* [See to /frontend](/frontend/README.md)
-* [See to /api](/api/README.md)
+* [See the frontend documentation in /frontend](/frontend/README.md)
+* [See the api documentation in /api](/api/README.md)

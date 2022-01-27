@@ -2,11 +2,11 @@
 
 This project is the backend part of the take home assignment for the role of Software Engineer in Mashgin Inc.
 
-This project was developed using Node + express + Typescript. Considering it was suposed to be a simple project, I decided to use only Express, instead of a more robust framework, like Nest or Loopback, beckouse such frameworks "hides" most of the necesary code to execute simple tasks like providing GET and POST urls, so it would be dificult to evaluete my real code quality and my knownledge.
+This project was developed using Node + express + Typescript. Considering it was suposed to be a simple project, I decided to use only Express, instead of a more robust framework, like NestJS or Loopback, because such frameworks already do all the "heavy" work.
 
-The application was developed in two parts:
+The API was developed in two parts:
 
-1. The application logic, splitted in 3 layers: **controller**, **service** and **repository**. The repository is responsible for connecting to the mongodb database, using a connection provided by the **connection factory**, and provide the read and write operations. The service do the necessary logic for executing the desired tasks, like fetching a menu or saving a order, passing the necessary data to the right service that will deal with that data. At last, the container is responsible for orchestrating the requests to the searvices (given the simplicity of this application, the controller turned out not to be needed).  This part of the application has as main characteristic the **low coupling**: each layer receives what it needs injected in the constructor. Also, each class knows only the **interface** they need, and never knows the implementation. This way, it was very simple to garantee that each class is working properly with **unit tests** which mocks the dependencies. This part of the application does not "knows" anything about HTTP, and nor even that is running on a server. It does not deal with HTTP requests neither RESPONSES. It only receives INOUTS and gives back OUTPUTS.
+1. The application logic, splitted in 3 layers: **controller**, **service** and **repository**. The repository is responsible for connecting to the mongodb database, using a connection provided by the **connection factory**, and provide the read and write operations. The service do the necessary logic for executing the desired tasks, like fetching a menu or saving a order, passing the necessary data to the right service that will deal with that data. At last, the container is responsible for orchestrating the requests to the searvices (given the simplicity of this particular application, the controller ended up being little used and could have been removed).  This part of the application has as main characteristic the **low coupling**: each layer receives the dependencies it needs injected in the constructor. Also, each class knows only the **interface** they need, and never knows the implementation. This way, it was very simple to garantee that each class is working properly with **unit tests** which mocks the dependencies. This part of the application does not "knows" anything about HTTP, and nor even if it is running on a server. It does not deal with HTTP requests neither RESPONSES. It only receives INPUTS and gives back OUTPUTS.
 
 2. The second part of the application is a simple service, running on express, that create the API routes, receives the HTTP requests, convert them to the format expected by the **controller** of the "part 1" and then delegates the tasks to the controller. Also, it receives the output (or exceptions thrown)  from controller and convert the to the proper http response.
 
@@ -19,7 +19,7 @@ The following routes were developed:
 * **GET ${BASE_URL}/images/:filename** - Serves static images saved in the **/files/images** directore (when running on docker, this directory will be mountend in **${PROJECT_ROOT}/.data-volumes/resources/images**)
 
 
-A full documentation of the API was created for **swagger**, and the source-code of the doc is in the **swagger.json** file. When running the application, the **swagger** interface will be available in: **${BASE_URL}/doc**
+A full **swagger** documentation of the API was created and the source-code of the doc is in the **swagger.json** file. When running the application, the **swagger** interface will be available in: **${BASE_URL}/doc**
 
 ![Swagger](../resources/prints/5-swagger.png?raw=true "Swagger")
 
@@ -74,6 +74,9 @@ docker-compose down
 It is not recommended to run this project without docker, but you can do it as follows:
 
 1. Enter the **api** subproject
+```
+cd ./api
+```
 2. install node v 14
 3. install the dependencies:
 ```
@@ -86,18 +89,18 @@ sudo mkdir /files
 
 5. Copy the product images to the created directory:
 ```
-sudo cp ./resources/sample-images/ /files/images -R
+sudo cp ../resources/sample-images/ /files/images -R
 ```
-6. Create a mongo database called **checkout-db** and start it
+6. Create a **mongo** database called **checkout-db** and start it
 
 7. Create a .env file (replace the values with the exact values you use on your application)
 ```
 touch .env
-echo DB_HOST: localhost >> .env
-echo DB_PORT: 27017 >> .env
-echo DB_NAME: checkout-db >> .env
-echo DB_USER: api >> .env
-echo DB_PASSWORD: mashgin-checkout-api-123 >> .env
+echo DB_HOST=localhost >> .env
+echo DB_PORT=27017 >> .env
+echo DB_NAME=checkout-db >> .env
+echo DB_USER=api >> .env
+echo DB_PASSWORD=mashgin-checkout-api-123 >> .env
 ```
 
 8. Start the service, with the following command:
