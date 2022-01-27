@@ -6,7 +6,7 @@ This project was developed using Node + express + Typescript. Considering it was
 
 The API was developed in two parts:
 
-1. The application logic, splitted in 3 layers: **controller**, **service** and **repository**. The repository is responsible for connecting to the mongodb database, using a connection provided by the **connection factory**, and provide the read and write operations. The service do the necessary logic for executing the desired tasks, like fetching a menu or saving a order, passing the necessary data to the right service that will deal with that data. Finally, the container is responsible for orchestrating the requests to the searvices (given the simplicity of this particular application, the controller ended up being little used and could have been removed).  This part of the application has as main characteristic the **low coupling**: each layer receives the dependencies it needs injected in the constructor. Also, each class knows only the **interface** they need, and never knows the implementation. This way, it was very simple to garantee that each class is working properly with **unit tests** which mocks the dependencies. This part of the application does not "knows" anything about HTTP, and nor even if it is running on a server. It does not deal with HTTP requests neither RESPONSES. It only receives INPUTS and gives back OUTPUTS.
+1. The application logic, splitted in 3 layers: **controller**, **service** and **repository**. The repository is responsible for connecting to the mongodb database, using a connection provided by the **connection factory**, and provide the read and write operations. The service do the necessary logic for executing the desired tasks, like fetching a menu or saving an order, passing the necessary data to the right service that will deal with that data. Finally, the container is responsible for orchestrating the requests to the searvices (given the simplicity of this particular application, the controller ended up being little used and could have been removed).  This part of the application has as main characteristic the **low coupling**: each layer receives the dependencies it needs injected in the constructor. Also, each class knows only the **interface** they need, and never knows the implementation. This way, it was very simple to garantee that each class is working properly with **unit tests** which mocks the dependencies. This part of the application does not "knows" anything about HTTP, and nor even if it is running on a server. It does not deal with HTTP requests neither RESPONSES. It only receives INPUTS and gives back OUTPUTS.
 
 2. The second part of the application is a simple service, running on express, that create the API routes, receives the HTTP requests, convert them to the format expected by the **controller** of the "part 1" and then delegates the tasks to the controller. Also, it receives the output (or exceptions thrown)  from controller and convert the to the proper http response.
 
@@ -93,7 +93,7 @@ sudo cp ../resources/sample-images/ /files/images -R
 ```
 6. Create a **mongo** database called **checkout-db** and start it
 
-7. Create a .env file (replace the values with the exact values you use on your application)
+7. Create a .env file (replace the values with the exact values you use on your database)
 ```
 touch .env
 echo DB_HOST=localhost >> .env
@@ -138,8 +138,8 @@ The API source code is located inside the directory ```${PROJECT_ROOT/api/src}``
 * **app.ts** - The application main script. It will create the Http Server, serve the images static folder and register the middleware for dealing with request haders.
 * **swagger.json** - Swagger documentation source code (json)
 * **controller**: This folder contains the **Controller** layer:
-  * **menu**: Contain the MenuController, its unit tests and interface. provides the operations bounded to the /menu API route (fetch menu)
-  * **order**: Contain the OrderController, its unit tests and interface.  provides the operations bounded to the /orders API route (create order, list orders)
+  * **menu**: Contain the MenuController, its unit tests and interface. provides the operations linked to the /menu API route (fetch menu)
+  * **order**: Contain the OrderController, its unit tests and interface.  provides the operations linked to the /orders API route (create order, list orders)
 * **service**: This folder contains the **Service** layer:
   * **menu**: Contain the MenuService, its unit tests and interface. provides business logic for fetching the menu
   * **order**: Contain the OrderService, its unit tests and interface. provides business logic for handling orders
@@ -148,7 +148,7 @@ The API source code is located inside the directory ```${PROJECT_ROOT/api/src}``
   * **order**: Contains the OrderRepository, its unit tests and interface. provides access to the Orders collection in the database.
   * **order**: Contains the ProductRepository, its unit tests and interface. provides access to the Products collection in the database.
   * **mongo-db-connection-factory.ts**: Contains the connection factory, responsible for connecting to the database using the environment variables.
-* **module**: Considering this is a small application, no framework was used for dependency injection. So, this module was implemented as a responsible for orchestrate the dependency injection and providing the already initialized instances of the containers so that the **app.ts** can use it.
+* **module**: Considering this is a small application, no framework was used for dependency injection. So, this module was implemented as a responsible for orchestrating dependency injection and providing the already initialized  container instances, so that the **app.ts** can use it.
 * **model**: definitions of each entity model.
 * **exceptions**: Custom exceptions
 
@@ -156,12 +156,12 @@ The API source code is located inside the directory ```${PROJECT_ROOT/api/src}``
 
 Bellow are listed some of the improvements I would do in next steps of this project (back-end API)
 
-1. Create a payment service (it could be new controllers, created in this API. or, preferably, a **new** microsservice)
+1. Create a payment service (it could be new controllers, created in this API, or preferably, a **new** microsservice)
 2. Implement an archtecture that allows to integrate the payment module to different payment networks, such as ports and adapters archtecture, for example
 3. Create endpoints for registering Products and Categories
 4. Implement Authentication and access control in at least 2 levels: Manager user (allowing to register products and categories; and issuing reports with the placed orders) and totems (or any other device in which the application will run, assuming that this application will not need user login for the costumers)
 5. Serve the application over HTTPS
 6. Write integration authomated tests (testing real requests to the api)
 7. Configure a CI/CD pipeline
-8. Replace express by a more robust framework, like NestJS or Loopback
+8. Replace express with a more robust framework, like NestJS or Loopback
 9. Create endpoints in the API for requesting the accepted payment methods, and serching/inserting them into database, instead of receiving any string
