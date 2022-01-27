@@ -41,7 +41,7 @@ npm run storybook
 
 2. Run the application in **production mode** (see the main README.md) and then go to [http://localhost:3001/storybook/](http://localhost:3001/storybook/) (Don`t forget the "/" in the end of the address).
 
-![Swagger](../resources/prints/6-storybook.png?raw=true "Swagger")
+![Storybook](../resources/prints/6-storybook.png?raw=true "Storybook")
 
 
 ## Running the Application
