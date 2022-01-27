@@ -1,4 +1,3 @@
-import { O_DIRECTORY } from 'constants'
 import { ICategory, IMenu, IOrder, IProduct } from '../../../../types'
 import { ProductList } from '../../atoms/ProductList/ProductList'
 import { TopBar } from '../../atoms/TopBar/TopBar'

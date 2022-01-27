@@ -12,8 +12,8 @@ This is a checkout application in which a user can add products to a cart, filte
 
 This full project is composed of 3 parts:
 
-* **Frontend**, developed with React + Typescript. The project is in the **frontend** directory (Please, see the ./resources/README.md for more information)
-* **Backend**, The backend API, developed with Node + Express + Typescript. The project is in the **api** directory (Please, see the ./api/README.md for more information)
+* **Frontend**, developed with React + Typescript. The project is in the **frontend** directory (Please, see the [./frontend/README.md](/frontend/README.md) file for more information)
+* **Backend**, The backend API, developed with Node + Express + Typescript. The project is in the **api** directory (Please, see the [./api/README.md](/api/README.md) for more information)
 * **Database**, a mongodb database, used for storing the **Products** and **Categories** that composes the **Menu**, and the submited **Orders**.
 
 This application was designed to work with **docker**, and each of the 3 parts described above runs in a different **docker container**, orchestrated by the **docker-compose**, using the **docker-compose.yml** file.
@@ -96,7 +96,7 @@ docker-compose -f docker-compose.yml -f docker-compose.dev.yml up
 
 * [http://localhost:3000](http://localhost:3000) - The backend api. Acessing this link you will see a quick reference about the endpoints available in the Api and a link to **swagger**
 * [http://localhost:3000/doc](http://localhost:3000/doc) - The api **documentation**, using **swagger**
-* [http://localhost:3001](http://localhost:3001) - The frontend application
+* [http://localhost:3001](http://localhost:3001) - The frontend application. it may take a few moments (**about 1 minute**) to become available
 * [http://localhost:3001/storybook/](http://localhost:3001/storybook/) - (Don`t forget the "/" in the end of path. It will not work without it) The **documentation** of all the components of the application, using **storybook**.  This link will only be available when running the application in **production** mode. To see it in development, please run it manually (inside the ./frontend directory, run ```npm run storybook```)
 
 
@@ -121,3 +121,11 @@ cd ./api
 npm run test
 ```
 
+
+
+## More details...
+
+To see more details about each project:
+
+* [See to /frontend](/frontend/README.md)
+* [See to /api](/api/README.md)

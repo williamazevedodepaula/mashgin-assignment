@@ -21,6 +21,8 @@ The following routes were developed:
 
 A full documentation of the API was created for **swagger**, and the source-code of the doc is in the **swagger.json** file. When running the application, the **swagger** interface will be available in: **${BASE_URL}/doc**
 
+![Swagger](../resources/prints/5-swagger.png?raw=true "Swagger")
+
 
 ## Running the Application
 
@@ -123,4 +125,4 @@ npm run test
 
 ### Tests report
 
-![Tests Report](../resources/prints/4-unit-tests.png?raw=true "Title")
+![Tests Report](../resources/prints/4-unit-tests.png?raw=true "Test Report")
