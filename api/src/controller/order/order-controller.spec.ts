@@ -31,6 +31,9 @@ describe('OrderController', () => {
       payment: {
         network: 'visa',
         paymentMethod: 'card',
+        pixCode: 'teste-pix-code',
+        cardNumber: '111111111111111',
+        cardSecurityCode: '123',
       },
       items: [
         {
@@ -121,18 +124,97 @@ describe('OrderController', () => {
         await orderController.createNewOrder(_orderPayload).should.eventually.be.rejectedWith(RequiredFieldException).and.to.include({ field: 'items.price' });
       })
 
-      it('Should check if the payment`s network is informed', async () => {
-        const _orderPayload: any = { ...orderPayload };
-        delete _orderPayload.payment.network;
-
-        await orderController.createNewOrder(_orderPayload).should.eventually.be.rejectedWith(RequiredFieldException).and.to.include({ field: 'payment.network' });
-      })
-
       it('Should check if the payment`s paymentMethod is informed', async () => {
         const _orderPayload: any = { ...orderPayload };
         delete _orderPayload.payment.paymentMethod;
 
         await orderController.createNewOrder(_orderPayload).should.eventually.be.rejectedWith(RequiredFieldException).and.to.include({ field: 'payment.paymentMethod' });
+      })
+
+      it('If payment method is PIX, network can be omited', async () => {
+        const _orderPayload: any = { ...orderPayload };
+        _orderPayload.payment.paymentMethod = 'pix';
+        delete _orderPayload.payment.network;
+
+        await orderController.createNewOrder(_orderPayload).should.not.eventually.be.rejected;
+      })
+
+      it('If payment method is PIX, pixCode should be mandatory', async () => {
+        const _orderPayload: any = { ...orderPayload };
+        _orderPayload.payment.paymentMethod = 'pix';
+        await orderController.createNewOrder(_orderPayload).should.not.eventually.be.rejected;
+
+        delete _orderPayload.payment.pixCode;
+        await orderController.createNewOrder(_orderPayload).should.eventually.be.rejectedWith(RequiredFieldException).and.to.include({ field: 'payment.pixCode' });
+      })
+
+      it('If payment method is Credit Card, network should be mndatory', async () => {
+        const _orderPayload: any = { ...orderPayload };
+        _orderPayload.payment.paymentMethod = 'Credit Card';
+        await orderController.createNewOrder(_orderPayload).should.not.eventually.be.rejected;
+
+        delete _orderPayload.payment.network;
+        await orderController.createNewOrder(_orderPayload).should.eventually.be.rejectedWith(RequiredFieldException).and.to.include({ field: 'payment.network' });
+      })
+
+      it('If payment method is Credit Card, cardNumber should be mndatory', async () => {
+        const _orderPayload: any = { ...orderPayload };
+        _orderPayload.payment.paymentMethod = 'Credit Card';
+        await orderController.createNewOrder(_orderPayload).should.not.eventually.be.rejected;
+
+        delete _orderPayload.payment.cardNumber;
+        await orderController.createNewOrder(_orderPayload).should.eventually.be.rejectedWith(RequiredFieldException).and.to.include({ field: 'payment.cardNumber' });
+      })
+
+      it('If payment method is Credit Card, cardSecurityCode should be mndatory', async () => {
+        const _orderPayload: any = { ...orderPayload };
+        _orderPayload.payment.paymentMethod = 'Credit Card';
+        await orderController.createNewOrder(_orderPayload).should.not.eventually.be.rejected;
+
+        delete _orderPayload.payment.cardSecurityCode;
+        await orderController.createNewOrder(_orderPayload).should.eventually.be.rejectedWith(RequiredFieldException).and.to.include({ field: 'payment.cardSecurityCode' });
+      })
+
+      it('If payment method is Debit Card, network should be mndatory', async () => {
+        const _orderPayload: any = { ...orderPayload };
+        _orderPayload.payment.paymentMethod = 'Debit Card';
+        await orderController.createNewOrder(_orderPayload).should.not.eventually.be.rejected;
+
+        delete _orderPayload.payment.network;
+        await orderController.createNewOrder(_orderPayload).should.eventually.be.rejectedWith(RequiredFieldException).and.to.include({ field: 'payment.network' });
+      })
+
+      it('If payment method is Debit Card, cardNumber should be mndatory', async () => {
+        const _orderPayload: any = { ...orderPayload };
+        _orderPayload.payment.paymentMethod = 'Debit Card';
+        await orderController.createNewOrder(_orderPayload).should.not.eventually.be.rejected;
+
+        delete _orderPayload.payment.cardNumber;
+        await orderController.createNewOrder(_orderPayload).should.eventually.be.rejectedWith(RequiredFieldException).and.to.include({ field: 'payment.cardNumber' });
+      })
+
+      it('If payment method is Debit Card, cardSecurityCode should be mndatory', async () => {
+        const _orderPayload: any = { ...orderPayload };
+        _orderPayload.payment.paymentMethod = 'Debit Card';
+        await orderController.createNewOrder(_orderPayload).should.not.eventually.be.rejected;
+
+        delete _orderPayload.payment.cardSecurityCode;
+        await orderController.createNewOrder(_orderPayload).should.eventually.be.rejectedWith(RequiredFieldException).and.to.include({ field: 'payment.cardSecurityCode' });
+      })
+
+      it('It should accept another payment method', async () => {
+        const _orderPayload: any = { ...orderPayload };
+        _orderPayload.payment.paymentMethod = 'teste';
+        await orderController.createNewOrder(_orderPayload).should.not.eventually.be.rejected;
+      })
+
+      it('For other payment methodos, all payment fields are optional', async () => {
+        const _orderPayload: any = { ...orderPayload };
+        _orderPayload.payment.paymentMethod = 'teste';
+        delete _orderPayload.payment.network;
+        delete _orderPayload.payment.cardNumber;
+        delete _orderPayload.payment.cardSecurityCode;
+        await orderController.createNewOrder(_orderPayload).should.not.eventually.be.rejected;
       })
     })
   })

@@ -38,12 +38,27 @@ export class OrderController implements IOrderController{
   }
 
   private validatePayment(data:any){
-    if(!data.network) throw new RequiredFieldException('payment.network');
+
     if(!data.paymentMethod) throw new RequiredFieldException('payment.paymentMethod');
+
+    switch(data.paymentMethod.toUpperCase()){
+      case 'PIX':
+        if(!data.pixCode) throw new RequiredFieldException('payment.pixCode');
+        break;
+      case 'CREDIT CARD':
+      case 'DEBIT CARD':
+        if(!data.network) throw new RequiredFieldException('payment.network');
+        if(!data.cardNumber) throw new RequiredFieldException('payment.cardNumber');
+        if(!data.cardSecurityCode) throw new RequiredFieldException('payment.cardSecurityCode');
+      default:
+    }
 
     return <Payment>{
       network: data.network,
+      pixCode: data.pixCode,
+      cardNumber: data.cardNumber,
       paymentMethod: data.paymentMethod,
+      cardSecurityCode: data.cardSecurityCode,
     }
   }
 }

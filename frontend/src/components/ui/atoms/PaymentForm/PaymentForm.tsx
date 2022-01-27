@@ -15,11 +15,15 @@ export const PaymentForm = (props: PaymentFormProps) => {
   const paymentMethods = ['Credit Card', 'Debit Card', 'Pix'];
   const networks = ['Visa', 'MasterCard', 'American Express', 'Dinners'];
 
-  const [paymentMethod, setPaymentMethod] = useState('' as string | undefined);
+
   const [network, setNetwork] = useState('' as string | undefined);
+  const [pixCode, setPixCode] = useState(undefined as string | undefined);
+  const [paymentMethod, setPaymentMethod] = useState('' as string | undefined);
   const [cardNumber, setCardNumber] = useState(undefined as string | number | undefined);
   const [cardSecurityCode, setCardSecurityCode] = useState(undefined as string | number | undefined);
-  const [pixCode, setPixCode] = useState(undefined as string | undefined);
+
+  const formIsValid = (paymentMethod == 'Pix')  ?  true : (cardNumber && cardSecurityCode && network);
+
 
   useEffect(() => {
     setPixCode((paymentMethod == 'Pix') ? uuidv4() : undefined)
@@ -84,7 +88,7 @@ export const PaymentForm = (props: PaymentFormProps) => {
 
       </div>
       <div className="col-6 flex-fill pt-4  d-flex justify-content-end">
-        <button className="btn btn-lg btn-primary">Finish Order</button>
+        <button className="btn btn-lg btn-primary" disabled={!formIsValid}>Finish Order</button>
       </div>
     </form>
   </div>

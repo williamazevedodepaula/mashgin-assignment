@@ -124,6 +124,19 @@ npm run test
 ```
 
 
+## The database
+
+If you wnant to connect to the database to see the data, using robomongo, DBeaver or any other Database management software, use the following connection parameters:
+
+```
+DB_HOST=localhost
+DB_PORT=27018   (may be different, if you exchange the variable in .env)
+DB_NAME=checkout-db
+DB_USER=api
+DB_PASSWORD=mashgin-checkout-api-123
+```
+
+
 
 ## More details...
 

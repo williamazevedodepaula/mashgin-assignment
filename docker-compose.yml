@@ -15,7 +15,7 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: mashgin-checkout-api-123
       MONGO_INITDB_DATABASE: checkout-db
   api:
-    container_name: mashgin-api
+    container_name: api
     build: ./api/
     volumes:
       - ./resources/sample-images/:/docker-entrypoint-initfiles.d/images/
