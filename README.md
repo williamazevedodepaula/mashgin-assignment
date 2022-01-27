@@ -20,15 +20,15 @@ This full project is composed of 3 parts:
 
 This application was designed to work with **docker**, and each of the 3 parts described above runs in a different **docker container**, orchestrated by the **docker-compose**, using the **docker-compose.yml** file.
 
-When starting the containers, database and static images directory will be automatically created and populated with initial data, found int the **resources** directory. All the docker volumes will be created in then path:
+When starting the containers, database and static images directory will be automatically created and populated with initial data, found int the **resources** directory. All the docker volumes will be created in this path:
 
 * **${PROJECT_ROOT}/.data-volumes/database** - Contains all the data base files
 * **${PROJECT_ROOT}/.files/images** - Contains all the image files served by the **api** application
 
 
-When the **api** docker container runs for the **first time**, a volume will be created in the **.data-volumes** directory, inside this project root directory. In his folder, the volume  **.data-volumes/files** will be created and initiated with all the **sample images** from the **resources** folder (the images that were provided to me together with the project specifications). Once the volume is initialized, the sample data will not be used anymore, and changes made in the volume will NOT be overwritten, so you can add or remove images to the volume and the application will serve them, with no risk of losing data.
+When the **api** docker container runs for the **first time**, a volume will be created in the **.data-volumes** directory, inside this project root directory. In this folder, the volume  **.data-volumes/files** will be created and initiated with all the **sample images** from the **resources** folder (the images that were provided to me together with the project specifications). Once the volume is initialized, the sample data will not be used anymore, and changes made in the volume will NOT be overwritten, so you can add or remove images to the volume and the application will serve them, with no risk of losing data.
 
-When the **database** docker container runs for the **first time**, a database will be automatically created e filled with the initial data from the **resources/sample-menu.json** file, which is the sample file provided to me together with the specifications of the project. After the database is created, the JSON is not used anymore, so no changes in the database will not be lost even if you restart the container (The only way to make the sample data be filled to database again is deleting the database volume. The  **clear-db.sh** bash script, in the project root, can be used for that.)
+When the **database** docker container runs for the **first time**, a database will be automatically created and filled with the initial data from the **resources/sample-menu.json** file, which is the sample file provided to me together with the specifications of the project. After the database is created, the JSON will not be used anymore, so no changes in the database will not be lost even if you restart the container (The only way to make the sample data to populate the database again is deleting the database volume. The  **clear-db.sh** bash script, in the project root, can be used for this.)
 
 
 ## Running the Application
@@ -36,25 +36,25 @@ When the **database** docker container runs for the **first time**, a database w
 
 ### prerequisites
 
-The application was designed to be run with **docker** and **docker-compose**. So it encapsulates all the configuration complexity. More ahead, in the README of each project, I will describe how to run the services without docker, but it is strogly recommended that you prefer to run it using docker.
+The application was designed to be run with **docker** and **docker-compose**. So it encapsulates all the configuration complexity. More ahead, in the README of each project, I will describe how to run the services without docker, but it is strongly recommended that you prefer to run it using docker.
 
-So, before initiating the application, it is necessary to have docker and docker-compose installed:
+So, before starting the application, it is necessary to have docker and docker-compose installed:
 
 
-1. [Install Docker](https://docs.docker.com/v17.12/install/linux/docker-ce/ubuntu/#install-using-the-repository/). **WARNING:** this link points to docker installation for '''UBUNTU'''. For other distributions, search for the correct link in the page
+1. [Install Docker](https://docs.docker.com/v17.12/install/linux/docker-ce/ubuntu/#install-using-the-repository/). **WARNING:** this link points to docker installation for **UBUNTU**. For other distributions, search for the correct link in the page
 2. [Configure docker for non-root user](https://docs.docker.com/v17.12/install/linux/linux-postinstall/#manage-docker-as-a-non-root-user)
 3. [Install Docker Compose](https://docs.docker.com/compose/install/)
 4. Install Node 14 and NPM
 
 ### Installation
 
-1. First create a **.env** from the **.env.example** (in the root of this project):
+1. First, create a **.env** file from the example **.env.example** (in the root of this project):
 
 ```
 cp .env.example .env
 ```
 
-This .env file already have all the necessary information, but you can change the Ports in which each service will run. By default, the following ports will be used:
+This .env file already has all the necessary information, but you can change the Ports in which each service will run. By default, the following ports will be used:
 
 * **api**: 3000
 * **frontend**: 3001
@@ -74,9 +74,9 @@ The containers can be run in two different modes: **production** and **developme
 
 When running in **production** mode, the frontend will run as static files and the backend api will run without watching source-code for changes. This increases performance. Also, in production mode, the application will always run the source code as it was in the build moment, so it is more reliable for production. So, if you make changes to the source code it will not be available in the container until you run docker-compose build again, to generate a new release.
 
-When running in **development** mode, a **volume** will be mounted, linking the souce-code to the container, and both frontend and backend will run in development mode, being automatically compiled everytime changes are made to source code.
+When running in **development** mode, a **volume** will be mounted, linking the souce-code to the container, and both frontend and backend will run in development mode, being automatically recompiled everytime changes are made to source code.
 
-The database will always behave the same in both modes.
+The database will always behave the same way in both modes.
 
 To run the application in **production** mode:
 
@@ -94,9 +94,9 @@ docker-compose -f docker-compose.yml -f docker-compose.dev.yml up
 
 
 
-4. If everythink goes alright, the following links will be available (if you change the **ports** in the .env file, don`t forget to change them in the links):
+4. If everythink goes all right, the following links will be available (if you change the **ports** in the .env file, don`t forget to change them in the links):
 
-* [http://localhost:3000](http://localhost:3000) - The backend api. Acessing this link you will see a quick reference about the endpoints available in the Api and a link to **swagger**
+* [http://localhost:3000](http://localhost:3000) - The backend api. Acessing this link, you will see a quick reference about the endpoints available in the Api and a link to **swagger**
 * [http://localhost:3000/doc](http://localhost:3000/doc) - The api **documentation**, using **swagger**
 * [http://localhost:3001](http://localhost:3001) - The frontend application. it may take a few moments (**about 1 minute**) to become available
 * [http://localhost:3001/storybook/](http://localhost:3001/storybook/) - (Don`t forget the "/" in the end of path. It will not work without it) The **documentation** of all the components of the application, using **storybook**.  This link will only be available when running the application in **production** mode. To see it in development, please run it manually (inside the ./frontend directory, run ```npm run storybook```)
@@ -126,11 +126,11 @@ npm run test
 
 ## The database
 
-If you wnant to connect to the database to see the data, using robomongo, DBeaver or any other Database management software, use the following connection parameters:
+If you want to connect to the database to see the data, using robomongo, DBeaver or any other Database management software, use the following connection parameters:
 
 ```
 DB_HOST=localhost
-DB_PORT=27018   (may be different, if you exchange the variable in .env)
+DB_PORT=27018   (may be different, if you replace the variable in .env)
 DB_NAME=checkout-db
 DB_USER=api
 DB_PASSWORD=mashgin-checkout-api-123
