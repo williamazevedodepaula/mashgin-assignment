@@ -1,6 +1,6 @@
 # Mashgin take-home assignment - Checkout Application
 
-![Categories Screen](../resources/prints/1-categories.png?raw=true "Categories")
+![Categories Screen](./resources/prints/1-categories.png?raw=true "Categories")
 
 take-home assignment for the position of software engineer
 
