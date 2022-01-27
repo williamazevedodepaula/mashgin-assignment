@@ -7,27 +7,27 @@ This project was developed using React and Typescript. It was used the react **f
 
 Also, it was used the  [Mterial Design for Bootstrap CSS framework](https://mdbootstrap.com/).
 
-This application was developed using the concept of [Component Driven User Interfaces](https://www.componentdriven.org/). To achieve this goal, first it was developed small reusable atomic components, like buttoms, dropdowns and cards. The, these components were combined to create components with higher level of abstraction, like cards for displaying products, for example. At last, higher components were created, containing the main views (or screens) for the application, using the smaller components. All these components - even the screens/views - have some characteristics in common:
+This application was developed using the concept of [Component Driven User Interfaces](https://www.componentdriven.org/). To achieve this goal, first it was developed small reusable atomic components, like buttoms, dropdowns and cards. Then, these components were combined to create components with higher level of abstraction, like cards for displaying products, for example. Finally, higher components were created, containing the main views (or screens) for the application, combining the smaller components. All these components - even the screens/views - have some characteristics in common:
 
 * All of them are defined ONLY by its inputs (props) and outputs (events)
 * A component only "knows" its children
-* A component reveive inputs ONLY from its parent
+* A component receive inputs ONLY from its parent
 * A component produces outputs ONLY for its parent (emit envents)
-* NONE of these components receive any information by any other means (API, files, local storage)
+* NONE of these components receive any information from any other source (API, files, local storage, etc.)
 
 Using this principle, the entire user interface was developed as a collection (or library) of visual-only components.
 
-All of these components were developed independently of any application, using the [storybook](https://storybook.js.org/), where is possible to test all components, mocking all possible input/outputs, without the need of runnin the application neither the API.
+All of these components were developed independently of any application, using the [storybook](https://storybook.js.org/), where it is possible to test all components, mocking all possible input/outputs, without the need of running the application or the API.
 
 When all the User Interface development was completed, the business-logic and access to data was "Connected" to the Screen/view components, using a "Controller" component. By the principle of single responsability, the controller component only orchestrate data and delegates UI to the View/screen components.
 
-In larger applications, many Controller (also called container) components can be used (one by route, for example). But, in order to keep this project as simple as possible, and considering that it has a very small amount of requirements, I decided to keep all the Controller logic in a single component: The **App.tsx** component. It is the only component that fetches data from the API and sends data to it, too. Also, it is the component who decides, based on user actions, which view/screen will be displayed. 3 different views were implemented for this application:
+In larger applications, many Controller components (also called containers) can be used (one by route, for example). But, in order to keep this project as simple as possible, and considering that it has a very small amount of requirements, I decided to keep all the Controller logic in a single component: The **App.tsx** component. It is the only component that fetches data from the API and sends data to it, too. Also, it is the component who decides, based on user actions, which view/screen will be displayed. 3 different views were implemented for this application:
 
 * **Categories**: Displays the categories so the user can click in one of them to see the products
 * **Products**: Displays all the products inside a category (or all the products, if no category is selected)
 * **Checkout**: Displays a form in which the user can inform payment data and submit the order to the API, storing it in the database
 
-Considering that it was necessary only 3 views/pages and that all application data (order and menu) lives througth the 3 views (the user goes from one view to another, putting items into the order), then the decision of using only a single Container made it possible to provide a single page application without need of any **routing** framework and neither **redux** or any other similar library for controlling shared state.
+Considering that it was necessary only 3 views/pages and that all application data (order and menu) lives througth the 3 views (the user goes from one view to another, putting items into the order), then the decision of using only a single Container made it possible to provide a single page application without need of any **routing** framework or any library for controlling shared state, like **redux**.
 
 ## Running Storybook
 
@@ -126,7 +126,7 @@ The application will be available in [http://localhost:3001](http://localhost:30
 
 ## project Folder Structure
 
-The frontend source code is located inside the directory ```${PROJECT_ROOT/frontend/src}```, and it organized as follows:
+The frontend source code is located inside the directory ```${PROJECT_ROOT/frontend/src}```, and it is organized as follows:
 
 * **index.tsx** - The application main script. It will bind the React App component to the DOM
 * **types** - Contains the type definitions of the manipulated entities
@@ -145,10 +145,10 @@ The frontend source code is located inside the directory ```${PROJECT_ROOT/front
 Bellow are listed some of the improvements I would do in next steps of this project (front-end)
 
 1. If the application will run in a totem, or any other public location, I would remove the Credit card fields from the payment form, and replace them for an integration with a pinpad, so that the user can insert his card instead of typing.
-2. Improve the responsivity of the application. Because of time limitations, most of the components are not very responsive, looking bad in mobile devices
+2. Improve the responsivity of the application. Due to time constraints, most of the components are not very responsive, looking bad in mobile devices
 3. Payment processing routines
 4. Create a management module, allowing authenticated users to register new products and categories and issue reports with the placed orders
-5. Implement some type of authentication mecanism. In my understanding, this application should be used by anonymous users, without login, but it need to have more security in the communication between frontend and backend, by authenticating the totem or device in which the application is running
+5. Implement some type of authentication mecanism. In my understanding, this application should be used by anonymous users, without login. But it needs to have more security in the communication between frontend and backend, by authenticating the totem or device in which the application is running
 6. Write unit tests for the components.
 7. Serve the application over HTTPS
 8. Perform more elegant form validation, instead of using intrusive dialogs. A combination of Formik+Yum and material design field messages can be used.
