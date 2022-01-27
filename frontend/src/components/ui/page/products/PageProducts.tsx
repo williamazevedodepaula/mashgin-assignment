@@ -15,6 +15,11 @@ export interface PageProductsProps {
   onBackClick:()=> void
 }
 
+/**
+ * This component will display the entire Products
+ * screen/view of the application, allowing the user
+ * to add products to the cart
+ */
 export const PageProducts = function (props: PageProductsProps) {
 
   const productList = filterCategory(props.menu.items,props.selectedCategory?.id);

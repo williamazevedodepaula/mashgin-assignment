@@ -28,9 +28,7 @@ export default {
 const Template: ComponentStory<typeof PageCategories> = (args) => <PageCategories {...args}/>;
 
 export const Default = Template.bind({});
-Default.args = {
-
-};
+Default.args = {};
 
 
 export const NoCategories = Template.bind({});

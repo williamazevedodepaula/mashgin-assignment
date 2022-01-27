@@ -29,6 +29,7 @@ function App() {
       alert('An unknown error has occurried when connecting to the server')
     }
   }
+
   const handleFinishOrder = async(orderWithPayment:IOrder)=>{
     try{
       const savedOrder = await apiFacade.saveOrder(orderWithPayment);
@@ -43,6 +44,7 @@ function App() {
     setSelectedCategory(category);
     setPage('products');
   }
+
   const handleClearCartClick = () => {
     const newOrder:IOrder = {...order, items:[]};
     setOrder(newOrder);
@@ -50,12 +52,15 @@ function App() {
       setPage('categories');
     }
   }
+
   const handleGoToChekoutClick = () => {
     setPage('checkout');
   }
+
   const handleKeepBuying = () => {
     setPage('categories');
   }
+
   const handleAddProductClick = (product:IProduct) => {
     const newOrder:IOrder = {...order};
     newOrder.items = [...order.items, {
@@ -64,6 +69,7 @@ function App() {
     }];
     setOrder(newOrder);
   }
+
   const handleRemoveProductClick = (product:IProduct) => {
     const newOrder:IOrder = {...order};
     newOrder.items = [...newOrder.items];
@@ -75,6 +81,7 @@ function App() {
     }
     setOrder(newOrder);
   }
+
   const handleBackClick = () => {
     switch(page){
       case 'products':

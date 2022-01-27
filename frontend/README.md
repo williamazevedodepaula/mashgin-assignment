@@ -130,10 +130,11 @@ The frontend source code is located inside the directory ```${PROJECT_ROOT/front
 
 * **index.tsx** - The application main script. It will bind the React App component to the DOM
 * **types** - Contains the type definitions of the manipulated entities
-* **components** - Mos important folder! All application components are located here
-  * **App.tsx** - The main react component. For this small application, it was used as **Controller**, being the only one component allowed to acces the "outside world", orchestrating the pages/views to be displayed, connecting to the api and storing the information shared between multiple views.
+* **components** - Most important folder! All application components are located here
+  * **App.tsx** - The main react component. For this small application, it was used as **Controller**, being the single component allowed to acces the "outside world", orchestrating the pages/views to be displayed, connecting to the api and storing the information shared between multiple views.
   * **ui/atoms** - This folder contains all the small UI components used in the application. Each component is inside its own folder, containing the component and its story file, for being displayed on **storybook**.
   * **ui/pages** - This folder contains all the page/views UI components used in the application. Each component is inside its own folder, containing the component and its story file, for being displayed on **storybook**.
     * **categories** - Layout implementation of the Categories page
     * **products** - Layout implementation of the Products page
     * **checkout** - Layout implementation of the Checkout page
+* **api-facades** - Facades used to abstract the access to the API. The App.tsx use this facade to access the menu and order APIs

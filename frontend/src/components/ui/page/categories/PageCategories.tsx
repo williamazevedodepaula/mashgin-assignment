@@ -12,6 +12,10 @@ export interface PageCategoriesProps {
   onCategoryClick:(category:ICategory)=>void
 }
 
+/**
+ * This component will display the entire Categories
+ * screen/view (the home screen of the application)
+ */
 export const PageCategories = function (props: PageCategoriesProps) {
 
   let categories = [{

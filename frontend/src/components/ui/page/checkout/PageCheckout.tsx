@@ -17,6 +17,11 @@ export interface PageCheckoutProps {
   onBackClick:()=> void
 }
 
+/**
+ * This component will display the entire Checkout
+ * screen/view of the application, allowing the user
+ * to inform the payment data and submit the order
+ */
 export const PageCheckout = function (props: PageCheckoutProps) {
 
   const handleSubmitPayment = (payment:IPayment)=>{
