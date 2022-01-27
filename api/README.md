@@ -151,3 +151,17 @@ The API source code is located inside the directory ```${PROJECT_ROOT/api/src}``
 * **module**: Considering this is a small application, no framework was used for dependency injection. So, this module was implemented as a responsible for orchestrate the dependency injection and providing the already initialized instances of the containers so that the **app.ts** can use it.
 * **model**: definitions of each entity model.
 * **exceptions**: Custom exceptions
+
+## To Do List
+
+Bellow are listed some of the improvements I would do in next steps of this project (back-end API)
+
+1. Create a payment service (it could be new controllers, created in this API. or, preferably, a **new** microsservice)
+2. Implement an archtecture that allows to integrate the payment module to different payment networks, such as ports and adapters archtecture, for example
+3. Create endpoints for registering Products and Categories
+4. Implement Authentication and access control in at least 2 levels: Manager user (allowing to register products and categories; and issuing reports with the placed orders) and totems (or any other device in which the application will run, assuming that this application will not need user login for the costumers)
+5. Serve the application over HTTPS
+6. Write integration authomated tests (testing real requests to the api)
+7. Configure a CI/CD pipeline
+8. Replace express by a more robust framework, like NestJS or Loopback
+9. Create endpoints in the API for requesting the accepted payment methods, and serching/inserting them into database, instead of receiving any string

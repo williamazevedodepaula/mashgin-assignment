@@ -138,3 +138,23 @@ The frontend source code is located inside the directory ```${PROJECT_ROOT/front
     * **products** - Layout implementation of the Products page
     * **checkout** - Layout implementation of the Checkout page
 * **api-facades** - Facades used to abstract the access to the API. The App.tsx use this facade to access the menu and order APIs
+
+
+## To Do List
+
+Bellow are listed some of the improvements I would do in next steps of this project (front-end)
+
+1. If the application will run in a totem, or any other public location, I would remove the Credit card fields from the payment form, and replace them for an integration with a pinpad, so that the user can insert his card instead of typing.
+2. Improve the responsivity of the application. Because of time limitations, most of the components are not very responsive, looking bad in mobile devices
+3. Payment processing routines
+4. Create a management module, allowing authenticated users to register new products and categories and issue reports with the placed orders
+5. Implement some type of authentication mecanism. In my understanding, this application should be used by anonymous users, without login, but it need to have more security in the communication between frontend and backend, by authenticating the totem or device in which the application is running
+6. Write unit tests for the components.
+7. Serve the application over HTTPS
+8. Perform more elegant form validation, instead of using intrusive dialogs. A combination of Formik+Yum and material design field messages can be used.
+9. Replace ALERT by material design dialogs
+10. Configure a router for the react application, and split the controller component behavior in more components, instead of a single one
+11. Configure REDUX for controlling the global state of the application
+12. Configure a CI/CD pipeline
+13. Implement authomated end-to-end tests, using a tool like Cypress or QAWolf.
+
