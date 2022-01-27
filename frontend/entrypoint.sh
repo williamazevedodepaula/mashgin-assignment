@@ -9,6 +9,9 @@ if [ "$ENVIRONMENT" != "dev" ]; then
   npm run build-storybook
   mv ./build/ ./static
   mv ./storybook-static ./static/storybook
+else
+  echo "Development mode! installing dependencies..."
+  npm install
 fi;
 
 #Run container start command

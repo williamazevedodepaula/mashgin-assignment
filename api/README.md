@@ -104,3 +104,23 @@ npm start
 ```
 
 This will run the application in port 3000
+
+
+
+## Authomated Tests
+
+The **backend** API was developed using Behavior-Driven-Development (BDD), and unit tests. To run the tests **inside docker container**:
+
+```
+docker exec -it api npm run test
+```
+
+To run the tests directly on your SO, outside the container, jus run:
+
+```
+npm run test
+```
+
+### Tests report
+
+![Tests Report](../resources/prints/4-unit-tests.png?raw=true "Title")

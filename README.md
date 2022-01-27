@@ -1,6 +1,6 @@
 # mashgin-backend-test
 
-backend of the technical assignment for the position of software engineer
+take-home assignment for the position of software engineer
 
 This README file contains information about the general project (frontend and backend) and how to execute it.
 
@@ -16,16 +16,17 @@ This full project is composed of 3 parts:
 * **Backend**, The backend API, developed with Node + Express + Typescript. The project is in the **api** directory (Please, see the ./api/README.md for more information)
 * **Database**, a mongodb database, used for storing the **Products** and **Categories** that composes the **Menu**, and the submited **Orders**.
 
-This application was designed to work with **docker**, and each of the 3 parts described above runs in a different **docker container**, orchestrated by the **docker-compose**, with the **docker-compose.yml** file.
+This application was designed to work with **docker**, and each of the 3 parts described above runs in a different **docker container**, orchestrated by the **docker-compose**, using the **docker-compose.yml** file.
 
-When starting the containers, all database and file directories will be automatically created and populated with initial data. All the docker volumes will be created in then path:
+When starting the containers, database and static images directory will be automatically created and populated with initial data, found int the **resources** directory. All the docker volumes will be created in then path:
 
-* **$PROJECT_ROOT/.data-volumes** - Contains all the data base files
-* **$PROJECT_ROOT/.files/images** - Contains all the image files served by the **api** application
+* **${PROJECT_ROOT}/.data-volumes/database** - Contains all the data base files
+* **${PROJECT_ROOT}/.files/images** - Contains all the image files served by the **api** application
 
-When the **database** docker container runs for the **first time**, a database will be automatically created e filled with the initial from the **resources/sample-menu.json** file, which is the sample file provided to me together with the specifications of the project. After the database is created, the JSON is not used anymore, so no changes in the database will not be lost even if you restart the container (The only way to make the sample data be filled to database again is deleting the database volume. The bash script **clear-db.sh**, in the project root, can be used for that.)
 
-When the **api** docker container runs for the **first time**, a volume will be created in the **.data-volumes** directory, inside this project root directory. In his folder, the volume  **.data-volumes/files** will be created and initiated with all the **sample images** from the **resources** folder (the images that were provided to me together with the project specifications). Once the volume is initialized, the sample data will not be used anymore, and any changes made in the volume will be overwritten, so you can add or remove images to the volume and the application will serve them, with no risk of losing data.
+When the **api** docker container runs for the **first time**, a volume will be created in the **.data-volumes** directory, inside this project root directory. In his folder, the volume  **.data-volumes/files** will be created and initiated with all the **sample images** from the **resources** folder (the images that were provided to me together with the project specifications). Once the volume is initialized, the sample data will not be used anymore, and changes made in the volume will NOT be overwritten, so you can add or remove images to the volume and the application will serve them, with no risk of losing data.
+
+When the **database** docker container runs for the **first time**, a database will be automatically created e filled with the initial data from the **resources/sample-menu.json** file, which is the sample file provided to me together with the specifications of the project. After the database is created, the JSON is not used anymore, so no changes in the database will not be lost even if you restart the container (The only way to make the sample data be filled to database again is deleting the database volume. The  **clear-db.sh** bash script, in the project root, can be used for that.)
 
 
 ## Running the Application
@@ -33,7 +34,7 @@ When the **api** docker container runs for the **first time**, a volume will be 
 
 ### prerequisites
 
-The application was designed to be run with **docker** ad **docker-compose**, so it encapsulate all the configuration complexity. More ahead I will describe how to run the services without docker, but it is strogly recommended that you prefer to run it using docker.
+The application was designed to be run with **docker** and **docker-compose**. So it encapsulates all the configuration complexity. More ahead, in the README of each project, I will describe how to run the services without docker, but it is strogly recommended that you prefer to run it using docker.
 
 So, before initiating the application, it is necessary to have docker and docker-compose installed:
 
@@ -45,7 +46,7 @@ So, before initiating the application, it is necessary to have docker and docker
 
 ### Installation
 
-1. First create a **.env** from the **.env.example** :
+1. First create a **.env** from the **.env.example** (in the root of this project):
 
 ```
 cp .env.example .env
@@ -87,7 +88,7 @@ To run the application in **development** mode:
 docker-compose -f docker-compose.yml -f docker-compose.dev.yml up
 ```
 
-**IMPORTANT**: It is not necessary to make a nwew build in order to switch between the production and development modes. You just need to stop the services and start them again using the necessary command.
+**IMPORTANT**: It is not necessary to make a new build in order to switch between the production and development modes. You just need to stop the services and start them again using the necessary command.
 
 
 
@@ -96,7 +97,7 @@ docker-compose -f docker-compose.yml -f docker-compose.dev.yml up
 * [http://localhost:3000](http://localhost:3000) - The backend api. Acessing this link you will see a quick reference about the endpoints available in the Api and a link to **swagger**
 * [http://localhost:3000/doc](http://localhost:3000/doc) - The api **documentation**, using **swagger**
 * [http://localhost:3001](http://localhost:3001) - The frontend application
-* [http://localhost:3001/storybook/](http://localhost:3001/storybook/) - (Don`t forget the "/" in the end of path. It will not work without it) The **documentation** of all the domponents of the application, using **storybook**.  This link will only available when running the application in **production** mode. To see it in development, please run it manually (inside the ./frontend directory, run ```npm run storybook```)
+* [http://localhost:3001/storybook/](http://localhost:3001/storybook/) - (Don`t forget the "/" in the end of path. It will not work without it) The **documentation** of all the components of the application, using **storybook**.  This link will only be available when running the application in **production** mode. To see it in development, please run it manually (inside the ./frontend directory, run ```npm run storybook```)
 
 
 5. To **stop** the application (in any mode):
@@ -107,7 +108,7 @@ docker-compose down
 
 ## Authomated Tests
 
-The backend API was developed using Behavior-Driven-Development (BDD), and unit tests. To run the tests **inside docker container**:
+The **backend** API was developed using Behavior-Driven-Development (BDD), and unit tests. To run the tests **inside docker container**:
 
 ```
 docker exec -it api npm run test
@@ -116,6 +117,7 @@ docker exec -it api npm run test
 To run the tests directly on your SO, outside the container, jus run:
 
 ```
+cd ./api
 npm run test
 ```
 
